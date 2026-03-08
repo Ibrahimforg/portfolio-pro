@@ -1,0 +1,96 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Accueil",
+      "projects": "Projets",
+      "about": "À propos",
+      "contact": "Contact",
+      "skills": "Compétences",
+      "services": "Services",
+      "multimedia": "Multimédia"
+    },
+    "actions": {
+      "view": "Voir",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "submit": "Envoyer",
+      "loading": "Chargement...",
+      "error": "Erreur",
+      "success": "Succès"
+    },
+    "forms": {
+      "name": "Nom",
+      "email": "Email",
+      "message": "Message",
+      "subject": "Sujet",
+      "required": "Ce champ est requis",
+      "invalid": "Ce champ est invalide"
+    }
+  },
+  "en": {
+    "navigation": {
+      "home": "Home",
+      "projects": "Projects",
+      "about": "About",
+      "contact": "Contact",
+      "skills": "Skills",
+      "services": "Services",
+      "multimedia": "Multimedia"
+    },
+    "hero": {
+      "title": "Ibrahim FORGO",
+      "subtitle": "Network & Telecom Engineer",
+      "description": "Full-stack developer specialized in React, Next.js, TypeScript and Node.js"
+    }
+  },
+  "fr": {
+    "navigation": {
+      "home": "Accueil",
+      "projects": "Projets",
+      "about": "À propos",
+      "contact": "Contact",
+      "skills": "Compétences",
+      "services": "Services",
+      "multimedia": "Multimédia"
+    },
+    "hero": {
+      "title": "Ibrahim FORGO",
+      "subtitle": "Ingénieur Réseaux & Télécoms",
+      "description": "Développeur full-stack spécialisé en React, Next.js, TypeScript et Node.js"
+    }
+  },
+  "es": {
+    "navigation": {
+      "home": "Inicio",
+      "projects": "Proyectos",
+      "about": "Acerca de",
+      "contact": "Contacto",
+      "skills": "Habilidades",
+      "services": "Servicios",
+      "multimedia": "Multimedia"
+    },
+    "hero": {
+      "title": "Ibrahim FORGO",
+      "subtitle": "Ingeniero de Redes y Telecomunicaciones",
+      "description": "Desarrollador full-stack especializado en React, Next.js, TypeScript y Node.js"
+    }
+  },
+  "de": {
+    "navigation": {
+      "home": "Startseite",
+      "projects": "Projekte",
+      "about": "Über mich",
+      "contact": "Kontakt",
+      "skills": "Fähigkeiten",
+      "services": "Dienstleistungen",
+      "multimedia": "Multimedia"
+    },
+    "hero": {
+      "title": "Ibrahim FORGO",
+      "subtitle": "Netzwerk- & Telekommunikationsingenieur",
+      "description": "Full-Stack-Entwickler spezialisiert auf React, Next.js, TypeScript und Node.js"
+    }
+  }
+}

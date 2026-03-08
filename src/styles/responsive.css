@@ -1,0 +1,179 @@
+/* Responsive utilities */
+
+/* Custom breakpoints */
+@media (max-width: 320px) {
+  .container-xs {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-sm {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .text-responsive-xs {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  .card-responsive {
+    padding: 1rem;
+  }
+  
+  .btn-responsive {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container-md {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .grid-responsive {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .text-responsive-sm {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .container-tablet {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  
+  .grid-tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .hide-tablet {
+    display: none !important;
+  }
+  
+  .show-tablet {
+    display: block !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container-laptop {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  
+  .grid-laptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .hide-laptop {
+    display: none !important;
+  }
+  
+  .show-laptop {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .container-desktop {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  
+  .grid-desktop {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  
+  .hide-desktop {
+    display: none !important;
+  }
+  
+  .show-desktop {
+    display: block !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary,
+  .btn-secondary,
+  .card {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .hover-glow:hover {
+    transform: none;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .text-gradient {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-fadeInUp,
+  .animate-fadeInLeft,
+  .animate-fadeInRight,
+  .animate-scaleIn,
+  .animate-pulse-slow {
+    animation: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}

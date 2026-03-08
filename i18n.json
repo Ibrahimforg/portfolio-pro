@@ -1,0 +1,13 @@
+{
+  "locales": ["fr", "en", "ar"],
+  "defaultLocale": "fr",
+  "pages": {
+    "*": ["common"],
+    "/": ["home"],
+    "/about": ["about"],
+    "/projects": ["projects"],
+    "/projects/[slug]": ["project"],
+    "/contact": ["contact"],
+    "/multimedia": ["multimedia"]
+  }
+}

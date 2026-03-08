@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "dev:fast": "next dev -p 3000 --turbo",
+    "dev:clean": "powershell -ExecutionPolicy Bypass -File ./cleanup.ps1 && npm run dev",
+    "build": "next build",
+    "build:clean": "powershell -ExecutionPolicy Bypass -File ./cleanup.ps1 && npm run build",
+    "start": "next start",
+    "lint": "eslint",
+    "cleanup": "powershell -ExecutionPolicy Bypass -File ./cleanup.ps1",
+    "kill": "taskkill /F /IM node.exe"
+  }
+}
