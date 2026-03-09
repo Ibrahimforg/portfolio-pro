@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Ibrahim FORGO",
   title: "Ibrahim FORGO - Ingénieur Réseaux & Développeur Junior",
   description: "Ingénieur en formation spécialisé en réseaux, télécommunications et développement full-stack. Expériences pratiques chez Moov Africa avec projets concrets.",
-  url: "https://ibrah-forgo.vercel.app",
+  url: "https://portfolio-pro-theta-two.vercel.app",
   author: "Ibrahim FORGO",
   email: "ibrahimforgo59@gmail.com",
   phone: "+226 57 37 88 18",
