@@ -12,17 +12,14 @@
     }
   },
   "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase-service-key",
-    "SITE_URL": "@site-url",
-    "NEXTAUTH_SECRET": "@nextauth-secret",
-    "SENTRY_DSN": "@sentry-dsn"
+    "NEXT_PUBLIC_SUPABASE_URL": "https://cmuezfkmjzxjkrtgbfns.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_aOcuFyE_4Ts4ID5Tpd9gGw_SGoyEzTF",
+    "SITE_URL": "https://portfolio-pro-one-xi.vercel.app"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
-      "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key"
+      "NEXT_PUBLIC_SUPABASE_URL": "https://cmuezfkmjzxjkrtgbfns.supabase.co",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_aOcuFyE_4Ts4ID5Tpd9gGw_SGoyEzTF"
     }
   },
   "headers": [
