@@ -318,39 +318,6 @@ export default function ServicesAdminPage() {
           }}
         />
       )}
-
-      {filteredServices.length === 0 && (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 bg-surface-light rounded-full flex items-center justify-center mx-auto mb-4">
-            <Briefcase className="w-8 h-8 text-text-muted" />
-          </div>
-          <h3 className="text-lg font-semibold text-text-primary mb-2">Aucun service</h3>
-          <p className="text-text-secondary mb-4">
-            Commencez par ajouter vos premiers services professionnels
-          </p>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Ajouter un service
-          </button>
-        </div>
-      )}
-
-      {/* Create/Edit Modal */}
-      {(showCreateModal || editingService) && (
-        <ServiceModal
-          service={editingService}
-          onSave={editingService ? 
-            (data) => handleUpdateService(editingService.id, data) : 
-            handleCreateService
-          }
-          onClose={() => {
-            setShowCreateModal(false)
-            setEditingService(null)
-          }}
-        />
-      )}
     </PageLayout>
   )
 }
