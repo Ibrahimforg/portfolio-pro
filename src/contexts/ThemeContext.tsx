@@ -111,6 +111,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const colors = themes[theme]
     const modeColors = colorModes[isDark ? 'dark' : 'light']
     
+    console.log('🎨 Application du thème:', { theme, colorMode, isDark })
+    console.log('🎨 Couleurs:', { colors, modeColors })
+    
     // Couleurs de thème
     root.style.setProperty('--primary', colors.primary)
     root.style.setProperty('--primary-hover', colors.primaryHover)
@@ -123,6 +126,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.style.setProperty('--text-primary', modeColors.textPrimary)
     root.style.setProperty('--text-secondary', modeColors.textSecondary)
     root.style.setProperty('--border', modeColors.border)
+    
+    // Forcer l'application des classes sur le body
+    root.classList.toggle('dark', isDark)
+    root.classList.toggle('light', !isDark)
+    
+    console.log('🎨 Classes appliquées:', root.className)
+    console.log('🎨 CSS Variables:', {
+      '--primary': colors.primary,
+      '--background': modeColors.background,
+      '--surface': modeColors.surface,
+      '--text-primary': modeColors.textPrimary
+    })
     
     // Sauvegarde uniquement si la valeur a changé
     const currentTheme = localStorage.getItem('portfolio-theme')
