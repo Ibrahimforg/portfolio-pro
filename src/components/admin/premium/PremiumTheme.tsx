@@ -79,7 +79,13 @@ export function usePremiumTheme() {
 
 export function PremiumThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<'dark' | 'light' | 'auto'>('auto')
-  const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>('dark')
+  const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>(() => {
+    // Initialiser avec le thème système au montage
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+    return 'dark'
+  })
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -88,7 +94,6 @@ export function PremiumThemeProvider({ children }: { children: React.ReactNode }
     }
     
     mediaQuery.addEventListener('change', handleChange)
-    setSystemTheme(mediaQuery.matches ? 'dark' : 'light')
     
     return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
@@ -98,6 +103,8 @@ export function PremiumThemeProvider({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     const root = document.documentElement
+    console.log('🎨 PremiumTheme application:', { theme: currentTheme, colors })
+    
     root.style.setProperty('--primary', colors.primary)
     root.style.setProperty('--secondary', colors.secondary)
     root.style.setProperty('--accent', colors.accent)
@@ -115,6 +122,13 @@ export function PremiumThemeProvider({ children }: { children: React.ReactNode }
     root.style.setProperty('--info', colors.info)
     
     root.classList.toggle('dark', currentTheme === 'dark')
+    
+    // Debug logging
+    console.log('🎨 Variables CSS appliquées:', {
+      '--surface-elevated': colors.surfaceElevated,
+      '--text-primary': colors.text.primary,
+      '--border': colors.border
+    })
   }, [colors, currentTheme])
 
   return (
