@@ -19,6 +19,7 @@ import { SmartphoneIcon } from '@/components/ui/PWAManager'
 import { PageHeader } from '@/components/admin/premium/PageHeader'
 import { PageLayout } from '@/components/admin/premium/PageLayout'
 import AdminFilters from '@/components/admin/premium/AdminFilters'
+import ConfirmModal from '@/components/admin/premium/ConfirmModal'
 
 interface Skill {
   id: number
@@ -75,6 +76,11 @@ export default function SkillsManagement() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterCategory, setFilterCategory] = useState('')
   const [filterLevel, setFilterLevel] = useState('')
+  const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; skillId: number | null; skillName: string }>({
+    isOpen: false,
+    skillId: null,
+    skillName: ''
+  })
 
   useEffect(() => {
     if (!user) {
@@ -123,19 +129,31 @@ export default function SkillsManagement() {
   }
 
   const deleteSkill = async (id: number) => {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer cette compétence ?')) return
+    const skill = skills.find(s => s.id === id)
+    setDeleteModal({
+      isOpen: true,
+      skillId: id,
+      skillName: skill?.name || 'Cette compétence'
+    })
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteModal.skillId) return
 
     try {
       const { error } = await supabase
         .from('skills')
         .delete()
-        .eq('id', id)
+        .eq('id', deleteModal.skillId)
 
       if (error) throw error
-      setSkills(skills.filter(s => s.id !== id))
+
+      setSkills(skills.filter(s => s.id !== deleteModal.skillId))
+      setDeleteModal({ isOpen: false, skillId: null, skillName: '' })
     } catch (error) {
       console.error('Error deleting skill:', error)
-      alert('Erreur lors de la suppression de la compétence')
+      // TODO: Replace with themed error modal
+      console.error('Erreur lors de la suppression de la compétence')
     }
   }
 
@@ -303,6 +321,17 @@ export default function SkillsManagement() {
           })}
         </div>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={deleteModal.isOpen}
+        onClose={() => setDeleteModal({ isOpen: false, skillId: null, skillName: '' })}
+        onConfirm={confirmDelete}
+        title="Supprimer la compétence"
+        message={`Êtes-vous sûr de vouloir supprimer "${deleteModal.skillName}" ? Cette action est irréversible.`}
+        itemName={deleteModal.skillName}
+        type="delete"
+      />
     </PageLayout>
   )
 }
