@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@heroicons/react'],
     optimizeCss: true,
+    turbopack: {}, // Empty turbopack config to fix Turbopack + webpack conflict
   },
   images: {
     remotePatterns: [
