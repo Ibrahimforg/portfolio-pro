@@ -59,8 +59,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@sentry/nextjs": "^9.2.0",
-    "@sentry/react": "^9.2.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.6.1",
