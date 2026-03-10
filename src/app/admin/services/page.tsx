@@ -320,6 +320,17 @@ export default function ServicesAdminPage() {
         </div>
       )}
 
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={deleteModal.isOpen}
+        onClose={() => setDeleteModal({ isOpen: false, serviceId: null, serviceName: '' })}
+        onConfirm={confirmDelete}
+        title="Supprimer le service"
+        message={`Êtes-vous sûr de vouloir supprimer "${deleteModal.serviceName}" ? Cette action est irréversible.`}
+        itemName={deleteModal.serviceName}
+        type="delete"
+      />
+
       {/* Create/Edit Modal */}
       {(showCreateModal || editingService) && (
         <ServiceModal
@@ -495,7 +506,123 @@ function ServiceModal({ service, onSave, onClose }: ServiceModalProps) {
   )
 }
 
-// Main component return
+export default function ServicesAdminPage() {
+  const [services, setServices] = useState<Service[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showCreateModal, setShowCreateModal] = useState(false)
+  const [editingService, setEditingService] = useState<Service | null>(null)
+  const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; serviceId: number | null; serviceName: string }>({
+    isOpen: false,
+    serviceId: null,
+    serviceName: ''
+  })
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
+
+  const fetchServices = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .order('order_index', 'asc')
+
+      if (error) throw error
+      setServices(data || [])
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCreateService = async (service: Partial<Service>) => {
+    try {
+      const { error } = await supabase
+        .from('services')
+        .insert([{
+          ...service,
+          order_index: services.length + 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }])
+
+      if (error) throw error
+
+      await fetchServices()
+      setShowCreateModal(false)
+      setEditingService(null)
+    } catch (error) {
+      console.error('Error creating service:', error)
+    }
+  }
+
+  const handleUpdateService = async (id: number, service: Partial<Service>) => {
+    try {
+      const { error } = await supabase
+        .from('services')
+        .update({
+          ...service,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+
+      if (error) throw error
+
+      await fetchServices()
+      setEditingService(null)
+    } catch (error) {
+      console.error('Error updating service:', error)
+    }
+  }
+
+  const handleDeleteService = async (id: number) => {
+    const service = services.find(s => s.id === id)
+    setDeleteModal({
+      isOpen: true,
+      serviceId: id,
+      serviceName: service?.title || 'Ce service'
+    })
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteModal.serviceId) return
+
+    try {
+      const { error } = await supabase
+        .from('services')
+        .delete()
+        .eq('id', deleteModal.serviceId)
+
+      if (error) throw error
+
+      await fetchServices()
+      setDeleteModal({ isOpen: false, serviceId: null, serviceName: '' })
+    } catch (error) {
+      console.error('Error deleting service:', error)
+    }
+  }
+
+  const formatPrice = (pricing: any) => {
+    if (!pricing) return 'Non spécifié'
+    if (typeof pricing === 'object') {
+      if (pricing.min && pricing.max) {
+        return `${pricing.min}€ - ${pricing.max}€`
+      }
+      if (pricing.amount) {
+        return `${pricing.amount}€`
+      }
+    }
+    return 'Non spécifié'
+  }
+
+  const filteredServices = services.filter(service =>
+    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    service.short_description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
     <PageLayout>
       <div className="space-y-6">
