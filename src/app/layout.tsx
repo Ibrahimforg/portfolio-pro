@@ -26,6 +26,10 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
   manifest: "/manifest.json",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/icon-192x192.png',
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
