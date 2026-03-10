@@ -16,6 +16,7 @@ import {
 import { PageHeader } from '@/components/admin/premium/PageHeader'
 import { PageLayout } from '@/components/admin/premium/PageLayout'
 import AdminFilters from '@/components/admin/premium/AdminFilters'
+import ConfirmModal from '@/components/admin/premium/ConfirmModal'
 
 interface Service {
   id: number
@@ -42,6 +43,11 @@ export default function ServicesAdminPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [editingService, setEditingService] = useState<Service | null>(null)
+  const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; serviceId: number | null; serviceName: string }>({
+    isOpen: false,
+    serviceId: null,
+    serviceName: ''
+  })
 
   useEffect(() => {
     fetchServices()
@@ -98,17 +104,27 @@ export default function ServicesAdminPage() {
   }
 
   const handleDeleteService = async (id: number) => {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer ce service ?')) return
+    const service = services.find(s => s.id === id)
+    setDeleteModal({
+      isOpen: true,
+      serviceId: id,
+      serviceName: service?.title || 'Ce service'
+    })
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteModal.serviceId) return
 
     try {
       const { error } = await supabase
         .from('services')
         .delete()
-        .eq('id', id)
+        .eq('id', deleteModal.serviceId)
 
       if (error) throw error
 
       await fetchServices()
+      setDeleteModal({ isOpen: false, serviceId: null, serviceName: '' })
     } catch (error) {
       console.error('Error deleting service:', error)
     }
@@ -476,5 +492,176 @@ function ServiceModal({ service, onSave, onClose }: ServiceModalProps) {
         </form>
       </div>
     </div>
+  )
+}
+
+// Main component return
+  return (
+    <PageLayout>
+      <div className="space-y-6">
+        <PageHeader
+          title="Services"
+          description="Gérez vos services professionnels"
+          icon={<Briefcase className="w-6 h-6" />}
+          breadcrumbs={[
+            { label: 'Admin', href: '/admin' },
+            { label: 'Services', href: '/admin/services' }
+          ]}
+        />
+
+        {/* Actions */}
+        <div className="mb-8 bg-surface-light rounded-xl p-6 shadow-sm">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            <div className="flex-1 flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" />
+                <input
+                  type="text"
+                  placeholder="Rechercher un service..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
+                />
+              </div>
+            </div>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Ajouter un service
+            </button>
+          </div>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredServices.map((service) => (
+            <div key={service.id} className="bg-surface rounded-lg p-6 border border-border hover:border-primary/50 transition-colors">
+              {/* Header */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Briefcase className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-text-primary">{service.title}</h3>
+                    <p className="text-sm text-text-secondary">Service #{service.id}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Link
+                    href={`/admin/services/${service.id}/edit`}
+                    className="p-2 text-text-secondary hover:text-primary transition-colors"
+                  >
+                    <Edit className="w-4 h-4" />
+                  </Link>
+                  <button
+                    onClick={() => handleDeleteService(service.id)}
+                    className="p-2 text-text-secondary hover:text-red-400 transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium text-text-primary mb-2">Description</h4>
+                  <p className="text-sm text-text-secondary line-clamp-3">
+                    {service.short_description}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-text-primary mb-2">Tarification</h4>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                      {formatPrice(service.pricing)}
+                    </span>
+                    {service.pricing?.type && (
+                      <span className="text-xs text-text-muted">
+                        {service.pricing.type === 'fixed' ? 'Fixe' : service.pricing.type === 'hourly' ? 'Horaire' : 'Projet'}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-text-primary mb-2">Livrables</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {service.deliverables?.slice(0, 3).map((deliverable, index) => (
+                      <span
+                        key={index}
+                        className="px-2 py-1 bg-surface-elevated text-text-primary rounded-full text-xs"
+                      >
+                        {deliverable}
+                      </span>
+                    ))}
+                    {service.deliverables && service.deliverables.length > 3 && (
+                      <span className="px-2 py-1 bg-surface-elevated text-text-primary rounded-full text-xs">
+                        +{service.deliverables.length - 3}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-gray-800">
+                  <span className="text-xs text-text-secondary">
+                    Créé le {new Date(service.created_at).toLocaleDateString('fr-FR')}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {filteredServices.length === 0 && (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 bg-surface-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <Briefcase className="w-8 h-8 text-text-muted" />
+            </div>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">Aucun service</h3>
+            <p className="text-text-secondary mb-4">
+              Commencez par ajouter vos premiers services professionnels
+            </p>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Ajouter un service
+            </button>
+          </div>
+        )}
+
+        {/* Create/Edit Modal */}
+        {(showCreateModal || editingService) && (
+          <ServiceModal
+            service={editingService}
+            onSave={editingService ? 
+              (data) => handleUpdateService(editingService.id, data) : 
+              handleCreateService
+            }
+            onClose={() => {
+              setShowCreateModal(false)
+              setEditingService(null)
+            }}
+          />
+        )}
+
+        {/* Delete Confirmation Modal */}
+        <ConfirmModal
+          isOpen={deleteModal.isOpen}
+          onClose={() => setDeleteModal({ isOpen: false, serviceId: null, serviceName: '' })}
+          onConfirm={confirmDelete}
+          title="Supprimer le service"
+          message={`Êtes-vous sûr de vouloir supprimer "${deleteModal.serviceName}" ? Cette action est irréversible.`}
+          itemName={deleteModal.serviceName}
+          type="delete"
+        />
+      </div>
+    </PageLayout>
   )
 }
