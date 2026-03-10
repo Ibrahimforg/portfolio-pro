@@ -145,73 +145,70 @@ export default function CVManagement() {
   }
 
   // Charger le CV au montage du composant
-  useState(() => {
+  useEffect(() => {
     loadCurrentCV()
-  })
+  }, [])
 
   return (
-    <PageLayout
-      header={
+    <PageLayout>
+      <div className="space-y-6">
         <PageHeader
           title="Gestion du CV"
           description="Téléchargez et gérez votre CV professionnel"
+          icon={<FileText className="w-6 h-6" />}
           breadcrumbs={[
-            { label: 'Dashboard', href: '/admin/dashboard' },
+            { label: 'Admin', href: '/admin' },
             { label: 'CV', href: '/admin/cv' }
           ]}
         />
-      }
-    >
-      <div className="space-y-6">
-        <div className="card">
-          <h2 className="text-xl font-semibold text-text-primary mb-6 flex items-center gap-2">
-            <FileText className="w-5 h-5" />
-            Gestion du CV
-          </h2>
 
-          {/* Messages */}
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-500" />
-              <span className="text-red-700 text-sm">{error}</span>
+        {/* Messages */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-400" />
+            <span className="text-red-400 text-sm">{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-            <span className="text-green-700 text-sm">{success}</span>
+          <div className="mb-4 p-3 bg-green-500/20 border border-green-500/30 rounded-lg">
+            <span className="text-green-400 text-sm">{success}</span>
           </div>
         )}
 
         {/* Upload Section */}
-        <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors">
-          <Upload className="w-12 h-12 mx-auto mb-4 text-text-secondary" />
-          <h3 className="text-lg font-medium text-text-primary mb-2">
-            Upload votre CV
-          </h3>
-          <p className="text-text-secondary mb-4">
-            Format PDF uniquement - Maximum 10MB
-          </p>
-          
-          <label className="btn-primary cursor-pointer inline-flex items-center gap-2">
-            <Upload className="w-4 h-4" />
-            {uploading ? 'Upload en cours...' : 'Choisir un fichier'}
-            <input
-              type="file"
-              accept=".pdf"
-              onChange={handleFileUpload}
-              disabled={uploading}
-              className="hidden"
-            />
-          </label>
+        <div className="bg-surface rounded-lg p-8 border border-border">
+          <div className="text-center">
+            <Upload className="w-12 h-12 mx-auto mb-4 text-text-secondary" />
+            <h3 className="text-lg font-medium text-text-primary mb-2">
+              Upload votre CV
+            </h3>
+            <p className="text-text-secondary mb-4">
+              Format PDF uniquement - Maximum 10MB
+            </p>
+            
+            <label className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors cursor-pointer inline-flex items-center gap-2">
+              <Upload className="w-4 h-4" />
+              {uploading ? 'Upload en cours...' : 'Choisir un fichier'}
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={handleFileUpload}
+                disabled={uploading}
+                className="hidden"
+              />
+            </label>
+          </div>
         </div>
 
         {/* CV Actuel */}
         {cvFile && (
-          <div className="mt-6 p-4 bg-surface border border-border rounded-lg">
+          <div className="mt-6 bg-surface rounded-lg p-6 border border-border">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <FileText className="w-8 h-8 text-primary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-primary" />
+                </div>
                 <div>
                   <h4 className="font-medium text-text-primary">{cvFile.name}</h4>
                   <p className="text-sm text-text-secondary">
@@ -226,7 +223,7 @@ export default function CVManagement() {
                   href={cvFile.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary inline-flex items-center gap-2"
+                  className="px-3 py-2 bg-surface-light border border-border rounded-lg hover:bg-surface transition-colors inline-flex items-center gap-2"
                 >
                   <DownloadIcon className="w-4 h-4" />
                   Voir
@@ -234,7 +231,7 @@ export default function CVManagement() {
                 
                 <button
                   onClick={handleDelete}
-                  className="btn-secondary text-red-400 hover:text-red-300 inline-flex items-center gap-2"
+                  className="px-3 py-2 text-red-400 hover:text-red-300 inline-flex items-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />
                   Supprimer
@@ -245,9 +242,9 @@ export default function CVManagement() {
         )}
 
         {/* Instructions */}
-        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h4 className="font-medium text-blue-800 mb-2">💡 Instructions</h4>
-          <ul className="text-sm text-blue-700 space-y-1">
+        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+          <h4 className="font-medium text-blue-400 mb-2">💡 Instructions</h4>
+          <ul className="text-sm text-blue-300 space-y-1">
             <li>• Upload votre CV au format PDF</li>
             <li>• Le CV sera automatiquement disponible sur votre portfolio</li>
             <li>• Vous pouvez remplacer le CV à tout moment</li>
@@ -255,7 +252,6 @@ export default function CVManagement() {
           </ul>
         </div>
       </div>
-      </div>
-      </PageLayout>
+    </PageLayout>
   )
 }
