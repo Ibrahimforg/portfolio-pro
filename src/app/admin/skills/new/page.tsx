@@ -104,11 +104,11 @@ export default function NewSkillPage() {
           ]}
         />
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="bg-surface rounded-lg shadow-sm border border-border p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Nom de la compétence *
                 </label>
                 <input
@@ -116,20 +116,20 @@ export default function NewSkillPage() {
                   required
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
                   placeholder="Ex: React.js, Python, Gestion de projet..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Catégorie *
                 </label>
                 <select
                   required
                   value={formData.category_id}
                   onChange={(e) => handleInputChange('category_id', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
                 >
                   <option value="">Sélectionner une catégorie</option>
                   {categories.map((category) => (
@@ -141,14 +141,14 @@ export default function NewSkillPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Niveau *
                 </label>
                 <select
                   required
                   value={formData.level}
                   onChange={(e) => handleInputChange('level', e.target.value as 'Expert' | 'Advanced' | 'Intermediate')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
                 >
                   <option value="Intermediate">Intermédiaire</option>
                   <option value="Advanced">Avancé</option>
@@ -157,7 +157,7 @@ export default function NewSkillPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Années d'expérience *
                 </label>
                 <input
@@ -167,19 +167,19 @@ export default function NewSkillPage() {
                   max="50"
                   value={formData.years_experience}
                   onChange={(e) => handleInputChange('years_experience', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
                   placeholder="Ex: 3"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Icône
                 </label>
                 <select
                   value={formData.icon}
                   onChange={(e) => handleInputChange('icon', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
                 >
                   <option value="Code">Code</option>
                   <option value="Database">Base de données</option>
@@ -190,22 +190,22 @@ export default function NewSkillPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-text-primary mb-2">
                 Description
               </label>
               <textarea
                 value={formData.description}
                 onChange={(e) => handleInputChange('description', e.target.value)}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
                 placeholder="Décrivez votre expérience et vos réalisations avec cette compétence..."
               />
             </div>
 
-            <div className="flex justify-between items-center pt-6 border-t border-gray-200">
+            <div className="flex justify-between items-center pt-6 border-t border-border">
               <Link
                 href="/admin/skills"
-                className="flex items-center px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center px-4 py-2 text-text-secondary hover:text-text-primary transition-colors"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Annuler
@@ -214,7 +214,7 @@ export default function NewSkillPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex items-center px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
