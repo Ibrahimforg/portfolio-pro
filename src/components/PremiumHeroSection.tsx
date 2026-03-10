@@ -38,12 +38,33 @@ function PremiumHeroSection() {
   useEffect(() => {
     const loadCV = async () => {
       try {
-        const { data } = await supabase.storage
-          .from('profiles')
-          .getPublicUrl('cv.pdf')
-        
-        if (data) {
-          setCvUrl(data.publicUrl)
+        // Vérifier d'abord si le CV existe dans le bucket documents
+        const { data: cvData, error: cvError } = await supabase.storage
+          .from('documents')
+          .list('cv', {
+            limit: 1,
+            sortBy: { column: 'created_at', order: 'desc' }
+          })
+
+        if (cvError) {
+          console.log('CV non trouvé dans documents, fallback vers statique')
+          setCvUrl('/cv.pdf')
+          return
+        }
+
+        if (cvData && cvData.length > 0) {
+          const fileName = cvData[0].name
+          const { data } = await supabase.storage
+            .from('documents')
+            .getPublicUrl(`cv/${fileName}`)
+          
+          if (data) {
+            setCvUrl(data.publicUrl)
+          } else {
+            setCvUrl('/cv.pdf')
+          }
+        } else {
+          setCvUrl('/cv.pdf')
         }
       } catch (err) {
         console.error('Erreur lors du chargement du CV:', err)
