@@ -18,26 +18,17 @@ import { PageLayout } from '@/components/admin/premium/PageLayout'
 import { PageHeader } from '@/components/admin/premium/PageHeader'
 
 interface MultimediaItem {
-  id: string  // UUID
+  id: string
   title: string
   description: string | null
-  file_type: string  // image, video, audio, document
+  file_type: string
   file_url: string
   thumbnail_url: string | null
-  file_size: number  // BIGINT
-  duration: number | null  // Pour vidéos en secondes
-  resolution: string | null  // 1080p, 4K, etc.
-  format: string | null  // mp4, webm, jpg, png, etc.
-  tags: string[]
-  category: string | null
+  file_size: number
   alt_text: string | null
-  metadata: Record<string, unknown>  // JSONB
-  featured: boolean
   published: boolean
-  project_id: number | null
-  skill_id: number | null
-  order_index: number
   created_at: string
+  updated_at: string
 }
 
 export default function MultimediaAdminPage() {
@@ -84,12 +75,6 @@ export default function MultimediaAdminPage() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
 
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-  }
-
   const handleUpload = async (files: File[]) => {
     try {
       for (const file of files) {
@@ -116,19 +101,10 @@ export default function MultimediaAdminPage() {
               file_url: placeholderUrl,
               thumbnail_url: null,
               file_size: file.size,
-              duration: null,
-              resolution: null,
-              format: file.type.split('/')[1] || null,
-              tags: [],
-              category: null,
               alt_text: null,
-              metadata: {},
-              featured: false,
               published: true,
-              project_id: null,
-              skill_id: null,
-              order_index: 0,
-              created_at: new Date().toISOString()
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
             }
             setMultimedia(prev => [fallbackItem, ...prev])
             continue
@@ -172,28 +148,24 @@ export default function MultimediaAdminPage() {
       console.error('Error uploading files:', error)
       
       // Fallback local si tout échoue
-      const fallbackFiles = Array.from(files).map(file => ({
-        id: Date.now().toString() + Math.random(),
-        title: file.name,
-        description: `Fichier uploadé (mode dégradé)`,
-        file_type: file.type.startsWith('image/') ? 'image' : 'document',
-        file_url: URL.createObjectURL(file),
-        thumbnail_url: null,
-        file_size: file.size,
-        duration: null,
-        resolution: null,
-        format: file.type.split('/')[1] || null,
-        tags: [],
-        category: null,
-        alt_text: null,
-        metadata: {},
-        featured: false,
-        published: true,
-        project_id: null,
-        skill_id: null,
-        order_index: 0,
-        created_at: new Date().toISOString()
-      }))
+      const fallbackFiles = Array.from(files).map(file => {
+        const newItem: MultimediaItem = {
+          id: Date.now().toString(),
+          title: file.name,
+          description: `Fichier uploadé: ${file.name}`,
+          file_type: file.type.startsWith('image/') ? 'image' : 
+                    file.type.startsWith('video/') ? 'video' : 
+                    file.type.startsWith('audio/') ? 'audio' : 'document',
+          file_url: URL.createObjectURL(file),
+          thumbnail_url: null,
+          file_size: file.size,
+          alt_text: file.name,
+          published: true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }
+        return newItem
+      })
       
       setMultimedia(prev => [...fallbackFiles, ...prev])
     }
@@ -312,46 +284,17 @@ export default function MultimediaAdminPage() {
                   <h3 className="font-semibold text-text-primary mb-1 truncate">{item.title || 'Sans titre'}</h3>
                   <p className="text-sm text-text-secondary mb-2 line-clamp-2">{item.description || ''}</p>
                   
-                  <div className="flex items-center justify-between text-xs text-text-muted">
-                    <span className="capitalize">{item.file_type || 'document'}</span>
-                    <span>{formatFileSize(item.file_size || 0)}</span>
-                  </div>
-                  
-                  {item.duration && (
-                    <div className="text-xs text-text-muted mt-1">
-                      Durée: {formatDuration(item.duration)}
-                    </div>
-                  )}
-                  
-                  {item.resolution && (
+                  {item.file_type === 'video' && (
                     <div className="text-xs text-text-muted">
-                      Résolution: {item.resolution}
+                      Type: Vidéo
                     </div>
                   )}
                   
                   <div className="flex items-center gap-2 mt-2">
-                    {item.featured && (
-                      <span className="px-2 py-1 bg-primary/20 text-primary text-xs rounded">Featured</span>
-                    )}
                     {item.published && (
                       <span className="px-2 py-1 bg-green-500/20 text-green-500 text-xs rounded">Publié</span>
                     )}
                   </div>
-                  
-                  {item.tags && item.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {item.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} className="px-2 py-1 bg-surface-light text-xs rounded">
-                          {tag}
-                        </span>
-                      ))}
-                      {item.tags.length > 3 && (
-                        <span className="px-2 py-1 bg-surface-light text-xs rounded">
-                          +{item.tags.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
             )
