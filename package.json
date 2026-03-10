@@ -9,7 +9,7 @@
     "dev:fast": "NODE_ENV=development next dev -p 3001 --turbo",
     "dev:clean": "powershell -ExecutionPolicy Bypass -File ./cleanup.ps1 && npm run dev:fast",
     "build": "next build --webpack",
-    "build:clean": "powershell -ExecutionPolicy Bypass -File ./cleanup.ps1 && npm run build",
+    "build:clean": "powershell -ExecutionPolicy Bypass -File ./cleanup.ps1 && npm run build --webpack",
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

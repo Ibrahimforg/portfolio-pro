@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', '@heroicons/react'],
     optimizeCss: true,
   },
-  turbopack: {}, // Turbopack config at root level, not in experimental
   images: {
     remotePatterns: [
       {
