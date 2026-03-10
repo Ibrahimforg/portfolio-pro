@@ -253,17 +253,18 @@ html {
   .btn-primary {
     background-color: var(--primary);
     color: white;
-    padding: 0.75rem 1.5rem;
+    padding: 0.625rem 1.25rem;
     border-radius: 0.5rem;
-    font-weight: 500;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: none;
-    cursor: pointer;
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     position: relative;
     overflow: hidden;
+    font-size: 0.875rem;
+    min-height: 44px;
+    min-width: 44px;
   }
   
   .btn-primary:hover {
@@ -299,7 +300,7 @@ html {
     background-color: var(--surface);
     color: var(--text-primary);
     border: 1px solid var(--border);
-    padding: 0.75rem 1.5rem;
+    padding: 0.625rem 1.25rem;
     border-radius: 0.5rem;
     font-weight: 500;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -308,6 +309,9 @@ html {
     align-items: center;
     justify-content: center;
     position: relative;
+    font-size: 0.875rem;
+    min-height: 44px;
+    min-width: 44px;
   }
   
   .btn-secondary:hover {
