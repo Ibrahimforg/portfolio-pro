@@ -11,6 +11,8 @@ export function useCV() {
   useEffect(() => {
     const fetchCV = async () => {
       try {
+        console.log(' Recherche du CV dans bucket documents...')
+        
         const { data, error } = await supabase
           .storage
           .from('documents')
@@ -19,19 +21,35 @@ export function useCV() {
             sortBy: { column: 'created_at', order: 'desc' }
           })
 
-        if (error) throw error
+        if (error) {
+          console.error(' Erreur recherche CV:', error)
+          console.log(' Fallback vers CV statique')
+          setCvUrl('/cv.pdf')
+          return
+        }
+
+        console.log(' CV trouvés:', data)
 
         if (data && data.length > 0) {
           const file = data[0]
-          const { data: { publicUrl } } = supabase
+          const fileName = file?.name || ''
+          console.log(' Fichier CV:', fileName)
+          
+          const { data: { publicUrl } } = await supabase
             .storage
             .from('documents')
-            .getPublicUrl(`cv/${file.name}`)
+            .getPublicUrl(`cv/${fileName}`)
 
+          console.log(' URL CV:', publicUrl)
           setCvUrl(publicUrl)
+        } else {
+          console.log(' Aucun CV trouvé, fallback vers statique')
+          setCvUrl('/cv.pdf')
         }
       } catch (err) {
-        console.error('Erreur lors du chargement du CV:', err)
+        console.error(' Erreur lors du chargement du CV:', err)
+        console.log(' Fallback vers CV statique')
+        setCvUrl('/cv.pdf')
       } finally {
         setLoading(false)
       }
