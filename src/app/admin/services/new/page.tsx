@@ -16,11 +16,12 @@ import { PageLayout } from '@/components/admin/premium/PageLayout'
 
 interface NewService {
   title: string
-  description: string
+  slug: string
+  short_description: string
+  full_description: string
   icon: string
-  price: string
-  duration: string
-  featured: boolean
+  deliverables: string[]
+  order: number
 }
 
 export default function NewServicePage() {
@@ -28,11 +29,12 @@ export default function NewServicePage() {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState<NewService>({
     title: '',
-    description: '',
+    slug: '',
+    short_description: '',
+    full_description: '',
     icon: 'Briefcase',
-    price: '',
-    duration: '',
-    featured: false
+    deliverables: [],
+    order: 1
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,7 +58,7 @@ export default function NewServicePage() {
 
   const handleInputChange = (
     field: keyof NewService,
-    value: string | boolean
+    value: string | number | string[]
   ) => {
     setFormData(prev => ({
       ...prev,
@@ -97,27 +99,28 @@ export default function NewServicePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Prix
+                  Slug *
                 </label>
                 <input
                   type="text"
-                  value={formData.price}
-                  onChange={(e) => handleInputChange('price', e.target.value)}
+                  required
+                  value={formData.slug}
+                  onChange={(e) => handleInputChange('slug', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Ex: 500€/jour"
+                  placeholder="Ex: developpement-web-fullstack"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Durée
+                  Ordre d'affichage
                 </label>
                 <input
-                  type="text"
-                  value={formData.duration}
-                  onChange={(e) => handleInputChange('duration', e.target.value)}
+                  type="number"
+                  value={formData.order}
+                  onChange={(e) => handleInputChange('order', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Ex: 2 semaines, 1 mois"
+                  placeholder="Ex: 1"
                 />
               </div>
 
@@ -140,28 +143,41 @@ export default function NewServicePage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Description *
+                Description courte *
               </label>
               <textarea
-                value={formData.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
+                value={formData.short_description}
+                onChange={(e) => handleInputChange('short_description', e.target.value)}
+                rows={3}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Résumé du service en une phrase..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description complète *
+              </label>
+              <textarea
+                value={formData.full_description}
+                onChange={(e) => handleInputChange('full_description', e.target.value)}
                 rows={6}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Décrivez en détail ce service, les livrables, et la valeur ajoutée..."
               />
             </div>
 
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="featured"
-                checked={formData.featured}
-                onChange={(e) => handleInputChange('featured', e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="featured" className="ml-2 block text-sm text-gray-900">
-                Service en vedette
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Livrables (séparez par des virgules)
               </label>
+              <input
+                type="text"
+                value={formData.deliverables.join(', ')}
+                onChange={(e) => handleInputChange('deliverables', e.target.value.split(', ').map(d => d.trim()) as string[])}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Ex: Site web responsive, Base de données, Documentation"
+              />
             </div>
 
             <div className="flex justify-between items-center pt-6 border-t border-gray-200">
