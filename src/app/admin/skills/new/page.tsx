@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react'
 // Explicit React import for Next.js 16 compatibility
 import { useRouter } from 'next/navigation'
 import { 
-  Plus, 
   Save, 
   ArrowLeft,
   Code,
