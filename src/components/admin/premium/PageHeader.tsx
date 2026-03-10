@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 
 interface PageHeaderProps {
   title: string
+  subtitle?: string
   description?: string
   actions?: ReactNode
   breadcrumbs?: Array<{ label: string; href: string }>
