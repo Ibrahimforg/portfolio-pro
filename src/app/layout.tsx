@@ -72,7 +72,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased pt-20`}>
+      <body className={`${inter.variable} font-sans antialiased pt-16 sm:pt-20`}>
         <SkipLinks />
         <ErrorBoundary>
           <AuthProvider>

@@ -77,7 +77,7 @@ function PremiumHeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center pb-[18vh]">
+    <section className="relative min-h-screen flex items-center justify-center pb-[10vh] sm:min-h-[80vh] sm:pb-[15vh] lg:min-h-[70vh] lg:pb-[18vh]">
       {/* Animated Background - Même style que l'original */}
       <div className="absolute inset-0">
         {/* Gradient Orbs */}
@@ -95,7 +95,7 @@ function PremiumHeroSection() {
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 w-full">
           {/* Photo - Left */}
           <div className="flex-shrink-0 relative order-1 lg:order-1">
-            <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 relative mx-auto lg:mx-0">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-72 xl:h-72 relative mx-auto lg:mx-0">
               {/* Photo Container - Version améliorée avec image réelle */}
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
@@ -172,28 +172,28 @@ function PremiumHeroSection() {
             {/* Animated Title - Version corrigée */}
             <div className="mb-6">
               <h1 
-                className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-black text-gradient mb-6 transition-all duration-500 hover:scale-105"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gradient mb-4 sm:mb-6 transition-all duration-500 hover:scale-105"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
                 {profileData?.display_name || profileData?.full_name || 'Ibrahim FORGO'}
               </h1>
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
-                <Sparkles className={`w-5 h-5 text-primary transition-all duration-300 ${isHovered ? 'animate-spin' : ''}`} />
-                <span className="text-xl lg:text-2xl text-primary font-semibold">
+              <div className="flex items-center justify-center lg:justify-start gap-2 mb-3 sm:mb-4">
+                <Sparkles className={`w-4 h-4 sm:w-5 sm:h-5 text-primary transition-all duration-300 ${isHovered ? 'animate-spin' : ''}`} />
+                <span className="text-lg sm:text-xl lg:text-2xl text-primary font-semibold">
                   {profileData?.hero_title || profileData?.title || 'Ingénieur Réseaux & Systèmes'}
                 </span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
-                <Code className="w-5 h-5 text-secondary transition-all duration-300" />
-                <span className="text-xl lg:text-2xl text-secondary font-semibold">
+              <div className="flex items-center justify-center lg:justify-start gap-2 mb-3 sm:mb-4">
+                <Code className="w-4 h-4 sm:w-5 sm:h-5 text-secondary transition-all duration-300" />
+                <span className="text-lg sm:text-xl lg:text-2xl text-secondary font-semibold">
                   {profileData?.hero_subtitle || 'Conception, Automatisation, Infrastructure'}
                 </span>
               </div>
             </div>
             
             {/* Description premium */}
-            <p className="text-xl text-text-secondary leading-relaxed max-w-3xl mb-10 font-light">
+            <p className="text-base sm:text-lg lg:text-xl text-text-secondary leading-relaxed max-w-3xl mb-8 sm:mb-10 font-light">
               {profileData?.bio || "Expert en infrastructure réseaux et développement d'applications modernes. Je conçois des solutions techniques robustes, sécurisées et évolutives pour les entreprises ambitieuses qui cherchent l'excellence."}
             </p>
             
