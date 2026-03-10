@@ -7,8 +7,7 @@ import { useRouter } from 'next/navigation'
 import { 
   Save, 
   ArrowLeft,
-  Code,
-  Star
+  Code
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
@@ -116,7 +115,7 @@ export default function NewSkillPage() {
                   required
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
+                  className="w-full px-3 py-2 bg-surface-elevated border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
                   placeholder="Ex: React.js, Python, Gestion de projet..."
                 />
               </div>
@@ -148,7 +147,7 @@ export default function NewSkillPage() {
                   required
                   value={formData.level}
                   onChange={(e) => handleInputChange('level', e.target.value as 'Expert' | 'Advanced' | 'Intermediate')}
-                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface-elevated border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
                 >
                   <option value="Intermediate">Intermédiaire</option>
                   <option value="Advanced">Avancé</option>
@@ -158,7 +157,7 @@ export default function NewSkillPage() {
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Années d'expérience *
+                  Années d&apos;expérience *
                 </label>
                 <input
                   type="number"
@@ -167,7 +166,7 @@ export default function NewSkillPage() {
                   max="50"
                   value={formData.years_experience}
                   onChange={(e) => handleInputChange('years_experience', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
+                  className="w-full px-3 py-2 bg-surface-elevated border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
                   placeholder="Ex: 3"
                 />
               </div>
@@ -179,7 +178,7 @@ export default function NewSkillPage() {
                 <select
                   value={formData.icon}
                   onChange={(e) => handleInputChange('icon', e.target.value)}
-                  className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface-elevated border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
                 >
                   <option value="Code">Code</option>
                   <option value="Database">Base de données</option>
@@ -197,7 +196,7 @@ export default function NewSkillPage() {
                 value={formData.description}
                 onChange={(e) => handleInputChange('description', e.target.value)}
                 rows={4}
-                className="w-full px-3 py-2 bg-surface-light border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
+                className="w-full px-3 py-2 bg-surface-elevated border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-text-primary placeholder-text-secondary"
                 placeholder="Décrivez votre expérience et vos réalisations avec cette compétence..."
               />
             </div>
