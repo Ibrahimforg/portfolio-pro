@@ -7,11 +7,12 @@ interface PageHeaderProps {
   title: string
   subtitle?: string
   description?: string
+  icon?: ReactNode
   actions?: ReactNode
   breadcrumbs?: Array<{ label: string; href: string }>
 }
 
-export function PageHeader({ title, description, actions, breadcrumbs }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, description, icon, actions, breadcrumbs }: PageHeaderProps) {
   return (
     <div className="bg-surface border-b border-gray-800 mb-3">
       <div className="px-6 py-2">
@@ -31,11 +32,21 @@ export function PageHeader({ title, description, actions, breadcrumbs }: PageHea
 
         {/* Header Content */}
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-text-primary">{title}</h1>
-            {description && (
-              <p className="text-text-muted mt-1">{description}</p>
+          <div className="flex items-center gap-3">
+            {icon && (
+              <div className="flex-shrink-0">
+                {icon}
+              </div>
             )}
+            <div>
+              <h1 className="text-lg font-bold text-text-primary">{title}</h1>
+              {subtitle && (
+                <p className="text-text-muted mt-1">{subtitle}</p>
+              )}
+              {description && (
+                <p className="text-text-muted mt-1">{description}</p>
+              )}
+            </div>
           </div>
           
           {actions && (
