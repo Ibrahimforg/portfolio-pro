@@ -79,16 +79,12 @@ function PremiumHeroSection() {
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
                 <Image
-                  src={profileData?.profile_image_url || "/images/profile.svg"}
+                  src="/images/profile.svg"
                   alt="Ibrahim FORGO"
                   fill
                   className="object-cover"
                   priority
-                  onError={(e) => {
-                    // Fallback vers image statique si l'upload ne charge pas
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/images/profile.svg";
-                  }}
+                  suppressHydrationWarning
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 
