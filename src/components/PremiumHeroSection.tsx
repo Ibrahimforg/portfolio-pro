@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
 import { ArrowRight, Mail, Sparkles, Code, Zap, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
 import { supabase } from '@/lib/supabase'
 
@@ -78,12 +77,10 @@ function PremiumHeroSection() {
               {/* Photo Container - Version améliorée avec image réelle */}
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
-                <Image
+                <img
                   src="/images/profile.svg"
                   alt="Ibrahim FORGO"
-                  fill
-                  className="object-cover"
-                  priority
+                  className="w-full h-full object-cover"
                   suppressHydrationWarning
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
