@@ -73,7 +73,7 @@ function PremiumHeroSection() {
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
                 <img
-                  src="/images/profile.svg"
+                  src="/images/profile.jpg"
                   alt="Ibrahim FORGO"
                   className="w-full h-full object-cover"
                   suppressHydrationWarning
