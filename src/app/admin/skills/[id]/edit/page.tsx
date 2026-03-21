@@ -171,9 +171,9 @@ export default function EditSkillPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-b border-gray-800 shadow-sm">
+      <header className="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-b border shadow-sm">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+        <div className="flex items-center justify-between p-4 border-b border">
           <div className="flex items-center">
             <Link href="/admin/skills" className="flex items-center text-text-secondary hover:text-primary transition-colors">
               <ArrowLeft className="w-4 h-4" />
@@ -210,7 +210,7 @@ export default function EditSkillPage() {
                   type="text"
                   value={skill.name}
                   onChange={(e) => setSkill({...skill, name: e.target.value})}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   required
                 />
               </div>
@@ -223,7 +223,7 @@ export default function EditSkillPage() {
                 <select
                   value={skill.category_id}
                   onChange={(e) => setSkill({...skill, category_id: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                 >
                   {categories.map(category => (
                     <option key={category.id} value={category.id}>
@@ -241,7 +241,7 @@ export default function EditSkillPage() {
                 <select
                   value={skill.level}
                   onChange={(e) => setSkill({...skill, level: e.target.value as 'Expert' | 'Advanced' | 'Intermediate'})}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                 >
                   <option value="Expert">Expert</option>
                   <option value="Advanced">Advanced</option>
@@ -258,7 +258,7 @@ export default function EditSkillPage() {
                   type="number"
                   value={skill.years_experience}
                   onChange={(e) => setSkill({...skill, years_experience: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   min="0"
                 />
               </div>
@@ -272,7 +272,7 @@ export default function EditSkillPage() {
                   type="text"
                   value={skill.icon}
                   onChange={(e) => setSkill({...skill, icon: e.target.value})}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   placeholder="ex: Database, Code, etc."
                 />
               </div>
@@ -286,7 +286,7 @@ export default function EditSkillPage() {
                   value={skill.description}
                   onChange={(e) => setSkill({...skill, description: e.target.value})}
                   rows={4}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                 />
               </div>
 
@@ -299,7 +299,7 @@ export default function EditSkillPage() {
                   type="number"
                   value={skill.order_index}
                   onChange={(e) => setSkill({...skill, order_index: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 bg-surface border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-text-primary"
+                  className="w-full px-3 py-2 bg-surface border-2 text-text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   min="0"
                 />
               </div>

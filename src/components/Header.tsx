@@ -103,9 +103,8 @@ export function Header() {
           
           {/* Sidebar */}
           <div 
-            className={`relative w-72 sm:w-80 h-screen bg-surface border-r border-gray-800 shadow-xl transition-all duration-300 ease-in-out transform ${
-              isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}
+            className="relative w-72 sm:w-80 h-screen bg-surface border-r border-gray-800 shadow-xl transition-all duration-300 ease-in-out transform"
+            style={{ transform: isMenuOpen ? 'translateX(0)' : 'translateX(-100%)' }}
           >
             <div className="flex flex-col h-full">
               {/* Header du sidebar */}

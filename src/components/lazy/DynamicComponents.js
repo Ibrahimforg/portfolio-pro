@@ -6,11 +6,6 @@ export const AdminMultimediaUpload = dynamic(
   { ssr: false }
 )
 
-export const HeroSection = dynamic(
-  () => import('@/components/HeroSection'),
-  { ssr: true }
-)
-
 export const ProjectCard = dynamic(
   () => import('@/components/ProjectCard'),
   { ssr: true }
