@@ -76,7 +76,6 @@ function PremiumHeroSection() {
                   src="/images/profile.jpg"
                   alt="Ibrahim FORGO"
                   className="w-full h-full object-cover"
-                  suppressHydrationWarning
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 
