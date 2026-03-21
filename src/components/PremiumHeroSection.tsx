@@ -58,11 +58,6 @@ function PremiumHeroSection() {
     <section className="relative min-h-[70vh] flex items-center justify-center pb-[18vh]">
       {/* Animated Background - Même style que l'original */}
       <div className="absolute inset-0">
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div className="absolute top-40 right-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-        
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       </div>
