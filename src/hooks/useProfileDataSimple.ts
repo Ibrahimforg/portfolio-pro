@@ -16,6 +16,7 @@ interface SkillsConfig {
 }
 
 interface ProfileData {
+  id?: string
   full_name: string
   title: string
   bio: string
@@ -106,8 +107,30 @@ export function useProfileDataSimple() {
         
         // Utiliser le premier profil disponible au lieu de chercher par email
         if (data && data.length > 0) {
-          console.log('✅ Utilisation du premier profil disponible:', data[0])
-          setProfileData(data[0] as ProfileData)
+          const profile = data[0] as ProfileData
+          
+          // Forcer la mise à jour de l'URL de l'image si elle est null ou incorrecte
+          if (!profile.profile_image_url || profile.profile_image_url === '') {
+            console.log('🔄 Mise à jour URL image de profil...')
+            if (profile.id) {
+              const { error: updateError } = await supabase
+                .from('profiles')
+                .update({ profile_image_url: '/images/profile.jpg' })
+                .eq('id', profile.id)
+                
+              if (!updateError) {
+                profile.profile_image_url = '/images/profile.jpg'
+                console.log('✅ URL image mise à jour')
+              }
+            } else {
+              // Fallback si pas d'ID
+              profile.profile_image_url = '/images/profile.jpg'
+              console.log('✅ URL image définie en fallback')
+            }
+          }
+          
+          console.log('✅ Utilisation du profil:', profile)
+          setProfileData(profile)
         } else {
           console.log('❌ Aucun profil trouvé dans la table')
           setError('Aucun profil disponible')

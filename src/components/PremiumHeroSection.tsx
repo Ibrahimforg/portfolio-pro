@@ -56,6 +56,13 @@ function PremiumHeroSection() {
                   src={profileData?.profile_image_url || "/images/profile.jpg"}
                   alt="Ibrahim FORGO"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback si l'image ne charge pas
+                    const target = e.target as HTMLImageElement;
+                    if (!target.src.includes('profile.svg')) {
+                      target.src = '/images/profile.svg';
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 
