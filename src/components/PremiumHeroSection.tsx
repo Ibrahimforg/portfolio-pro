@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
-import { ArrowRight, Mail, Sparkles, Code, Zap, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
+import { ArrowRight, Mail, Sparkles, Code, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
 import Link from 'next/link'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
 import { supabase } from '@/lib/supabase'
@@ -239,29 +239,7 @@ function PremiumHeroSection() {
         </div>
       </div>
       
-      {/* Floating Icons - Positions corrigées */}
-      <div className="absolute top-32 left-10 animate-float">
-        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
-          <Code className="w-6 h-6 text-primary" />
-        </div>
-      </div>
-      <div className="absolute top-20 right-10 animate-float animation-delay-1000">
-        <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center border border-secondary/20">
-          <Cloud className="w-6 h-6 text-secondary" />
-        </div>
-      </div>
-      <div className="absolute bottom-20 left-20 animate-float animation-delay-2000">
-        <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
-          <Zap className="w-6 h-6 text-green-500" />
-        </div>
-      </div>
-      <div className="absolute top-1/3 right-1/4 animate-float animation-delay-3000">
-        <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center border border-blue-500/20">
-          <Network className="w-6 h-6 text-blue-500" />
-        </div>
-      </div>
-      
-      {/* Scroll Indicator - Positionné plus bas pour être bien visible */}
+      {/* Scroll Indicator */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 animate-bounce z-20">
         <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-primary rounded-full mt-1 animate-pulse"></div>
