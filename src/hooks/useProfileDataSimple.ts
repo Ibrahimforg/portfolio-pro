@@ -80,7 +80,7 @@ export function useProfileDataSimple() {
           full_name: 'Ibrahim FORGO',
           title: 'Ingénieur Réseaux & Système',
           bio: 'Ingénieur spécialisé en réseaux, télécommunications et développement full-stack.',
-          profile_image_url: null,
+          profile_image_url: '/images/profile.jpg',
           email: 'ibrahimforgo59@gmail.com',
           display_name: 'Ibrahim FORGO',
           hero_title: 'Ingénieur Réseaux & Système',

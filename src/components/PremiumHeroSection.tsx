@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
+import { useCV } from '@/hooks/useCV'
 import { ArrowRight, Mail, Sparkles, Code, Zap, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
 import Link from 'next/link'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
-import { supabase } from '@/lib/supabase'
 
 interface SkillsConfig {
   [category: string]: {
@@ -30,29 +30,9 @@ interface ProfileData {
 
 function PremiumHeroSection() {
   const [isHovered, setIsHovered] = useState(false)
-  const [cvUrl, setCvUrl] = useState<string | null>(null)
+  const { cvUrl } = useCV()
   const { trackDownload } = useAnalyticsUltraLight()
   const { profileData, loading, error } = useProfileDataSimple()
-
-  useEffect(() => {
-    const loadCV = async () => {
-      try {
-        const { data } = await supabase.storage
-          .from('profiles')
-          .getPublicUrl('cv.pdf')
-        
-        if (data) {
-          setCvUrl(data.publicUrl)
-        }
-      } catch (err) {
-        console.error('Erreur lors du chargement du CV:', err)
-        // Fallback vers fichier statique si Supabase ne fonctionne pas
-        setCvUrl('/cv.pdf')
-      }
-    }
-    
-    loadCV()
-  }, [])
 
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center pb-[18vh]">
@@ -73,7 +53,7 @@ function PremiumHeroSection() {
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
                 <img
-                  src="/images/profile.jpg"
+                  src={profileData?.profile_image_url || "/images/profile.svg"}
                   alt="Ibrahim FORGO"
                   className="w-full h-full object-cover"
                   suppressHydrationWarning
