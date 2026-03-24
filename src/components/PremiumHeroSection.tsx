@@ -169,24 +169,24 @@ function PremiumHeroSection() {
           
           {/* Text Content - Right - Structure optimisée */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-2 min-w-0">
-            {/* Animated Title - Version stable */}
-            <div className="mb-4 sm:mb-6">
+            {/* Animated Title - Version définitive stable */}
+            <div className="mb-6">
               <h1 
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-2 sm:mb-4 transition-all duration-300 hover:scale-105"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-4 transition-all duration-300 hover:scale-105"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
                 {profileData?.display_name || profileData?.full_name || 'Ibrahim FORGO'}
               </h1>
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-3 sm:mb-4">
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary transition-all duration-300" />
-                <span className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary font-semibold">
+              <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
+                <Sparkles className="w-5 h-5 text-primary transition-all duration-300" />
+                <span className="text-lg md:text-xl lg:text-2xl text-primary font-semibold">
                   {profileData?.hero_title || profileData?.title || 'Ingénieur Réseaux & Systèmes'}
                 </span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-4 sm:mb-6">
-                <Code className="w-4 h-4 sm:w-5 sm:h-5 text-secondary transition-all duration-300" />
-                <span className="text-base sm:text-lg md:text-xl lg:text-2xl text-secondary font-semibold">
+              <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
+                <Code className="w-5 h-5 text-secondary transition-all duration-300" />
+                <span className="text-lg md:text-xl lg:text-2xl text-secondary font-semibold">
                   {profileData?.hero_subtitle || 'Conception, Automatisation, Infrastructure'}
                 </span>
               </div>
@@ -199,11 +199,13 @@ function PremiumHeroSection() {
             
             {/* Specialization Tags - Structure corrigée pour responsive */}
             <div className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8 justify-center lg:justify-start">
+              {/* Specialization Tags - Tailles fixes et stables */}
+            <div className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
               {profileData?.skills_config ? (
                 Object.entries(profileData.skills_config).map(([category, config]) => (
                   <div 
                     key={category}
-                    className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full text-xs font-bold border transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-1.5 sm:gap-2 ${
+                    className={`px-3 py-2 rounded-full text-xs font-bold border transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2 ${
                       category === 'réseau' ? 'bg-primary/10 text-primary border-primary/30 hover:border-primary/60' :
                       category === 'télécom' ? 'bg-secondary/10 text-secondary border-secondary/30 hover:border-secondary/60' :
                       category === 'cloud' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:border-emerald-500/60' :
@@ -211,10 +213,10 @@ function PremiumHeroSection() {
                       'bg-gray-500/10 text-gray-400 border-gray-500/30 hover:border-gray-500/60'
                     }`}
                   >
-                    {category === 'réseau' && <Network className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />}
-                    {category === 'télécom' && <Radio className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />}
-                    {category === 'cloud' && <Cloud className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />}
-                    {category === 'sécurité' && <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />}
+                    {category === 'réseau' && <Network className="w-4 h-4" />}
+                    {category === 'télécom' && <Radio className="w-4 h-4" />}
+                    {category === 'cloud' && <Cloud className="w-4 h-4" />}
+                    {category === 'sécurité' && <Shield className="w-4 h-4" />}
                     <span>{config.title}</span>
                   </div>
                 ))
@@ -222,23 +224,24 @@ function PremiumHeroSection() {
                 // Fallback hardcodé si skills_config non disponible
                 <>
                   <div className="px-3 py-2 bg-primary/10 text-primary rounded-full text-xs font-bold border border-primary/30 hover:border-primary/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Network className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                    <Network className="w-4 h-4" />
                     <span>Réseaux & Télécoms</span>
                   </div>
                   <div className="px-3 py-2 bg-secondary/10 text-secondary rounded-full text-xs font-bold border border-secondary/30 hover:border-secondary/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Code className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                    <Code className="w-4 h-4" />
                     <span>Développement Full Stack</span>
                   </div>
                   <div className="px-3 py-2 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Cloud className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                    <Cloud className="w-4 h-4" />
                     <span>Cloud & DevOps</span>
                   </div>
                   <div className="px-3 py-2 bg-red-500/10 text-red-400 rounded-full text-xs font-bold border border-red-500/30 hover:border-red-500/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4" />
                     <span>Sécurité & Infrastructure</span>
                   </div>
                 </>
               )}
+            </div>
             </div>
             
             {/* CTA Buttons - Espacements corrigés */}
