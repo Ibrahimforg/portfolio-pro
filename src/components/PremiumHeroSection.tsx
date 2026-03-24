@@ -169,7 +169,7 @@ function PremiumHeroSection() {
           
           {/* Text Content - Right - Structure optimisée */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-2 min-w-0">
-            {/* Animated Title - Version corrigée */}
+            {/* Animated Title - Version stable */}
             <div className="mb-4 sm:mb-6">
               <h1 
                 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-2 sm:mb-4 transition-all duration-300 hover:scale-105"
@@ -179,7 +179,7 @@ function PremiumHeroSection() {
                 {profileData?.display_name || profileData?.full_name || 'Ibrahim FORGO'}
               </h1>
               <div className="flex items-center justify-center lg:justify-start gap-2 mb-3 sm:mb-4">
-                <Sparkles className={`w-4 h-4 sm:w-5 sm:h-5 text-primary transition-all duration-300 ${isHovered ? 'animate-spin' : ''}`} />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary transition-all duration-300" />
                 <span className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary font-semibold">
                   {profileData?.hero_title || profileData?.title || 'Ingénieur Réseaux & Systèmes'}
                 </span>
