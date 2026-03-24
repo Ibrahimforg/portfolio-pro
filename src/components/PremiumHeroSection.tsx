@@ -34,14 +34,6 @@ function PremiumHeroSection() {
   const { cvUrl } = useCV()
   const { trackDownload } = useAnalyticsUltraLight()
   const { profileData, loading, error } = useProfileDataSimple()
-  
-  // Déterminer l'image à utiliser
-  const getImageSrc = () => {
-    if (imageError || !profileData?.profile_image_url) {
-      return "/images/profile.jpg"
-    }
-    return profileData.profile_image_url
-  }
 
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center pb-[18vh]">
@@ -62,7 +54,7 @@ function PremiumHeroSection() {
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
                 <img
-                  src={getImageSrc()}
+                  src={imageError ? "/images/profile.jpg" : (profileData?.profile_image_url || "/images/profile.jpg")}
                   alt="Ibrahim FORGO"
                   className="w-full h-full object-cover"
                   onError={() => setImageError(true)}
