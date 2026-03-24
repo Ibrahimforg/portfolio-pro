@@ -5,7 +5,6 @@ import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
 import { useCV } from '@/hooks/useCV'
 import { ArrowRight, Mail, Sparkles, Code, Zap, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
 
 interface SkillsConfig {
@@ -36,9 +35,6 @@ function PremiumHeroSection() {
   const { trackDownload } = useAnalyticsUltraLight()
   const { profileData, loading, error } = useProfileDataSimple()
   
-  // Timestamp pour casser le cache (fixe pour éviter les re-renders)
-  const cacheBuster = '20240323'
-  
   // Déterminer l'image à utiliser
   const getImageSrc = () => {
     if (imageError || !profileData?.profile_image_url) {
@@ -65,19 +61,12 @@ function PremiumHeroSection() {
               {/* Photo Container - Version améliorée avec image réelle */}
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
-                <div className="relative w-full h-full">
-                  <Image
-                    src={getImageSrc()}
-                    alt="Ibrahim FORGO"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    onError={() => {
-                      setImageError(true)
-                    }}
-                    unoptimized={profileData?.profile_image_url?.includes('supabase')}
-                  />
-                </div>
+                <img
+                  src={getImageSrc()}
+                  alt="Ibrahim FORGO"
+                  className="w-full h-full object-cover"
+                  onError={() => setImageError(true)}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 
                 {/* Overlay content au hover - Version avec données du panel admin */}
