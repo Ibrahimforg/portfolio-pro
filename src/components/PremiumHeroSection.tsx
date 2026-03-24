@@ -5,6 +5,7 @@ import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
 import { useCV } from '@/hooks/useCV'
 import { ArrowRight, Mail, Sparkles, Code, Zap, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
 
 interface SkillsConfig {
@@ -30,12 +31,21 @@ interface ProfileData {
 
 function PremiumHeroSection() {
   const [isHovered, setIsHovered] = useState(false)
+  const [imageError, setImageError] = useState(false)
   const { cvUrl } = useCV()
   const { trackDownload } = useAnalyticsUltraLight()
   const { profileData, loading, error } = useProfileDataSimple()
   
   // Timestamp pour casser le cache (fixe pour éviter les re-renders)
   const cacheBuster = '20240323'
+  
+  // Déterminer l'image à utiliser
+  const getImageSrc = () => {
+    if (imageError || !profileData?.profile_image_url) {
+      return "/images/profile.jpg"
+    }
+    return profileData.profile_image_url
+  }
 
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center pb-[18vh]">
@@ -55,18 +65,19 @@ function PremiumHeroSection() {
               {/* Photo Container - Version améliorée avec image réelle */}
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
-                <img
-                  src={`${profileData?.profile_image_url || "/images/profile.jpg"}?t=${cacheBuster}`}
-                  alt="Ibrahim FORGO"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback si l'image ne charge pas
-                    const target = e.target as HTMLImageElement;
-                    if (!target.src.includes('profile.svg')) {
-                      target.src = `/images/profile.svg?t=${cacheBuster}`;
-                    }
-                  }}
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={getImageSrc()}
+                    alt="Ibrahim FORGO"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    onError={() => {
+                      setImageError(true)
+                    }}
+                    unoptimized={profileData?.profile_image_url?.includes('supabase')}
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 
                 {/* Overlay content au hover - Version avec données du panel admin */}
