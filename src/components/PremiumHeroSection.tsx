@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
 import { useCV } from '@/hooks/useCV'
+import { useProfileImage } from '@/hooks/useProfileImage'
 import { ArrowRight, Mail, Sparkles, Code, Zap, Download, Network, Cloud, Shield, Github, Linkedin, Radio } from 'lucide-react'
 import Link from 'next/link'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
@@ -32,6 +33,7 @@ function PremiumHeroSection() {
   const [isHovered, setIsHovered] = useState(false)
   const [imageError, setImageError] = useState(false)
   const { cvUrl } = useCV()
+  const { profileImageUrl } = useProfileImage()
   const { trackDownload } = useAnalyticsUltraLight()
   const { profileData, loading, error } = useProfileDataSimple()
 
@@ -54,7 +56,7 @@ function PremiumHeroSection() {
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl relative group">
                 {/* Image de profil */}
                 <img
-                  src={imageError ? "/images/profile.jpg" : (profileData?.profile_image_url || "/images/profile.jpg")}
+                  src={imageError ? "/images/profile.jpg" : (profileImageUrl || "/images/profile.jpg")}
                   alt="Ibrahim FORGO"
                   className="w-full h-full object-cover"
                   onError={() => setImageError(true)}
