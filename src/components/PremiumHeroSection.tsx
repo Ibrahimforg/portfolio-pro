@@ -130,29 +130,29 @@ function PremiumHeroSection() {
                     </p>
                   )}
                   
-                  {/* Vraies icônes sociales - toujours visibles */}
+                  {/* Social Icons - Plus grandes */}
                   <div className="flex gap-4 mb-4">
                     <a 
                       href="https://github.com" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
+                      className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
                     >
-                      <Github className="w-4 h-4 text-white" />
+                      <Github className="w-5 h-5 text-white" />
                     </a>
                     <a 
                       href="https://linkedin.com" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
+                      className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
                     >
-                      <Linkedin className="w-4 h-4 text-white" />
+                      <Linkedin className="w-5 h-5 text-white" />
                     </a>
                     <a 
                       href="mailto:ibrahimforgo59@gmail.com" 
-                      className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
+                      className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
                     >
-                      <Mail className="w-4 h-4 text-white" />
+                      <Mail className="w-5 h-5 text-white" />
                     </a>
                   </div>
                   
@@ -169,24 +169,24 @@ function PremiumHeroSection() {
           
           {/* Text Content - Right - Structure optimisée */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-2 min-w-0">
-            {/* Animated Title - Version définitive stable */}
+            {/* Animated Title - Version avec tailles augmentées */}
             <div className="mb-6">
               <h1 
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-4 transition-all duration-300 hover:scale-105"
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gradient mb-4 transition-all duration-300 hover:scale-105"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
                 {profileData?.display_name || profileData?.full_name || 'Ibrahim FORGO'}
               </h1>
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-primary transition-all duration-300" />
-                <span className="text-lg md:text-xl lg:text-2xl text-primary font-semibold">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+                <Sparkles className="w-6 h-6 text-primary transition-all duration-300" />
+                <span className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-primary font-semibold">
                   {profileData?.hero_title || profileData?.title || 'Ingénieur Réseaux & Systèmes'}
                 </span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
-                <Code className="w-5 h-5 text-secondary transition-all duration-300" />
-                <span className="text-lg md:text-xl lg:text-2xl text-secondary font-semibold">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                <Code className="w-6 h-6 text-secondary transition-all duration-300" />
+                <span className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-secondary font-semibold">
                   {profileData?.hero_subtitle || 'Conception, Automatisation, Infrastructure'}
                 </span>
               </div>
@@ -199,7 +199,7 @@ function PremiumHeroSection() {
             
             {/* Specialization Tags - Structure corrigée pour responsive */}
             <div className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8 justify-center lg:justify-start">
-              {/* Specialization Tags - Tailles fixes et stables */}
+              {/* Specialization Tags - Icônes plus grandes */}
             <div className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
               {profileData?.skills_config ? (
                 Object.entries(profileData.skills_config).map(([category, config]) => (
@@ -213,10 +213,10 @@ function PremiumHeroSection() {
                       'bg-gray-500/10 text-gray-400 border-gray-500/30 hover:border-gray-500/60'
                     }`}
                   >
-                    {category === 'réseau' && <Network className="w-4 h-4" />}
-                    {category === 'télécom' && <Radio className="w-4 h-4" />}
-                    {category === 'cloud' && <Cloud className="w-4 h-4" />}
-                    {category === 'sécurité' && <Shield className="w-4 h-4" />}
+                    {category === 'réseau' && <Network className="w-5 h-5" />}
+                    {category === 'télécom' && <Radio className="w-5 h-5" />}
+                    {category === 'cloud' && <Cloud className="w-5 h-5" />}
+                    {category === 'sécurité' && <Shield className="w-5 h-5" />}
                     <span>{config.title}</span>
                   </div>
                 ))
@@ -224,19 +224,19 @@ function PremiumHeroSection() {
                 // Fallback hardcodé si skills_config non disponible
                 <>
                   <div className="px-3 py-2 bg-primary/10 text-primary rounded-full text-xs font-bold border border-primary/30 hover:border-primary/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Network className="w-4 h-4" />
+                    <Network className="w-5 h-5" />
                     <span>Réseaux & Télécoms</span>
                   </div>
                   <div className="px-3 py-2 bg-secondary/10 text-secondary rounded-full text-xs font-bold border border-secondary/30 hover:border-secondary/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Code className="w-4 h-4" />
+                    <Code className="w-5 h-5" />
                     <span>Développement Full Stack</span>
                   </div>
                   <div className="px-3 py-2 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Cloud className="w-4 h-4" />
+                    <Cloud className="w-5 h-5" />
                     <span>Cloud & DevOps</span>
                   </div>
                   <div className="px-3 py-2 bg-red-500/10 text-red-400 rounded-full text-xs font-bold border border-red-500/30 hover:border-red-500/60 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2">
-                    <Shield className="w-4 h-4" />
+                    <Shield className="w-5 h-5" />
                     <span>Sécurité & Infrastructure</span>
                   </div>
                 </>
@@ -244,31 +244,31 @@ function PremiumHeroSection() {
             </div>
             </div>
             
-            {/* CTA Buttons - Espacements corrigés */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+            {/* CTA Buttons - Plus grands et espacés */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start">
               <Link 
                 href="/projects" 
-                className="btn-primary inline-flex items-center justify-center group hover:scale-105 transition-all duration-300"
+                className="btn-primary inline-flex items-center justify-center group hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 py-3"
               >
                 Voir mes projets
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:scale-110 transition-transform" />
+                <ArrowRight className="ml-3 w-5 h-5 group-hover:scale-110 transition-transform" />
               </Link>
               <Link 
                 href="/contact" 
-                className="btn-secondary inline-flex items-center justify-center group hover:scale-105 transition-all duration-300"
+                className="btn-secondary inline-flex items-center justify-center group hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 py-3"
               >
                 Me contacter
-                <Mail className="ml-2 w-4 h-4 group-hover:scale-110 transition-transform" />
+                <Mail className="ml-3 w-5 h-5 group-hover:scale-110 transition-transform" />
               </Link>
               {cvUrl && (
                 <a 
                   href={cvUrl} 
                   download 
-                  className="btn-secondary inline-flex items-center justify-center group hover:scale-105 transition-all duration-300"
+                  className="btn-secondary inline-flex items-center justify-center group hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 py-3"
                   onClick={() => trackDownload('CV')}
                 >
                   Télécharger CV
-                  <Download className="ml-2 w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <Download className="ml-3 w-5 h-5 group-hover:scale-110 transition-transform" />
                 </a>
               )}
             </div>
@@ -276,25 +276,25 @@ function PremiumHeroSection() {
         </div>
       </div>
       
-      {/* Floating Icons - Positions corrigées */}
+      {/* Floating Icons - Plus grandes */}
       <div className="absolute top-32 left-10 animate-float">
-        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
-          <Code className="w-6 h-6 text-primary" />
+        <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+          <Code className="w-7 h-7 text-primary" />
         </div>
       </div>
       <div className="absolute top-20 right-10 animate-float animation-delay-1000">
-        <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center border border-secondary/20">
-          <Cloud className="w-6 h-6 text-secondary" />
+        <div className="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center border border-secondary/20">
+          <Cloud className="w-7 h-7 text-secondary" />
         </div>
       </div>
       <div className="absolute bottom-20 left-20 animate-float animation-delay-2000">
-        <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
-          <Zap className="w-6 h-6 text-green-500" />
+        <div className="w-14 h-14 bg-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
+          <Zap className="w-7 h-7 text-green-500" />
         </div>
       </div>
       <div className="absolute top-1/3 right-1/4 animate-float animation-delay-3000">
-        <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center border border-blue-500/20">
-          <Network className="w-6 h-6 text-blue-500" />
+        <div className="w-14 h-14 bg-blue-500/10 rounded-lg flex items-center justify-center border border-blue-500/20">
+          <Network className="w-7 h-7 text-blue-500" />
         </div>
       </div>
       
