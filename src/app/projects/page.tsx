@@ -6,11 +6,21 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Project, Category, ProjectWithCategory } from '@/types'
 
+// Hook pour détecter si le composant est monté côté client
+function useIsMounted() {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  return isMounted
+}
+
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<ProjectWithCategory[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [activeCategory, setActiveCategory] = useState('all')
   const [showLoading, setShowLoading] = useState(false)
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +76,7 @@ export default function ProjectsPage() {
     ? projects 
     : projects.filter(project => project.categories.name === activeCategory)
 
-  if (showLoading) {
+  if (!isMounted || showLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
