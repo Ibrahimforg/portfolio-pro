@@ -8,6 +8,15 @@ import Image from 'next/image'
 import { useProfileDataSimple } from '@/hooks/useProfileDataSimple'
 import { supabase } from '@/lib/supabase'
 
+// Hook pour détecter si le composant est monté côté client
+function useIsMounted() {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  return isMounted
+}
+
 interface SkillsConfig {
   [category: string]: {
     title: string
@@ -34,6 +43,7 @@ function PremiumHeroSection() {
   const [cvUrl, setCvUrl] = useState<string | null>(null)
   const { trackDownload } = useAnalyticsUltraLight()
   const { profileData, loading, error } = useProfileDataSimple()
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     const loadCV = async () => {
@@ -78,8 +88,15 @@ function PremiumHeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pb-[8vh] sm:min-h-[85vh] sm:pb-[12vh] md:min-h-[80vh] md:pb-[15vh] lg:min-h-[70vh] lg:pb-[18vh]">
-      {/* Animated Background - Même style que l'original */}
-      <div className="absolute inset-0">
+      {!isMounted && (
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+        </div>
+      )}
+      {isMounted && (
+        <>
+          {/* Animated Background - Même style que l'original */}
+          <div className="absolute inset-0">
         {/* Gradient Orbs */}
         <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
         <div className="absolute top-40 right-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -304,6 +321,8 @@ function PremiumHeroSection() {
           <div className="w-1 h-3 bg-primary rounded-full mt-1 animate-pulse"></div>
         </div>
       </div>
+        </>
+      )}
     </section>
   )
 }
