@@ -94,6 +94,6 @@ export class SecurityManager {
   // Vérifier le token CSRF
   verifyCSRFToken(token: string, sessionToken: string): boolean {
     // Implémentation de vérification CSRF
-    return token && sessionToken && token.length === 64
+    return !!(token && sessionToken && token.length === 64)
   }
 }

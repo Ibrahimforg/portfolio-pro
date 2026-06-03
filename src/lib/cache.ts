@@ -97,8 +97,10 @@ export class AdvancedCache<T = any> {
 
     // Évincer jusqu'à avoir assez d'espace
     for (let i = 0; i < entriesToEvict && i < entries.length; i++) {
-      const [key, entry] = entries[i]
-      this.currentSize -= entry.size
+      const entry = entries[i]
+      if (!entry) continue
+      const [key, cacheEntry] = entry
+      this.currentSize -= cacheEntry.size
       this.cache.delete(key)
     }
   }
@@ -142,7 +144,9 @@ export class DistributedCache<T> {
         const redisData = await this.redis.get(key)
         if (redisData) {
           data = JSON.parse(redisData)
-          this.localCache.set(key, data)
+          if (data !== null) {
+            this.localCache.set(key, data)
+          }
           return data
         }
       } catch (error) {

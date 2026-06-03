@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
-      checkAdminStatus(session?.user)
+      checkAdminStatus(session?.user ?? null)
     })
 
     // Listen for auth changes
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       async (event, session) => {
         setUser(session?.user ?? null)
         setLoading(false)
-        checkAdminStatus(session?.user)
+        checkAdminStatus(session?.user ?? null)
       }
     )
 

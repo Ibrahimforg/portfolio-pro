@@ -65,7 +65,7 @@ export function OptimizedImage({
       
       <Image
         {...props}
-        src={finalSrc}
+        src={finalSrc || ''}
         alt={alt}
         ref={lazy ? imgRef : undefined}
         onLoad={handleLoad}
@@ -155,12 +155,14 @@ export function ImageGallery({
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-4xl max-h-full">
-            <OptimizedImage
-              src={images[selectedImage].src}
-              alt={images[selectedImage].alt}
-              className="max-w-full max-h-full object-contain"
-              lazy={false}
-            />
+            {selectedImage !== null && images[selectedImage] && (
+              <OptimizedImage
+                src={images[selectedImage].src}
+                alt={images[selectedImage].alt}
+                className="max-w-full max-h-full object-contain"
+                lazy={false}
+              />
+            )}
             
             <button
               className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/30"

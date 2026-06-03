@@ -52,7 +52,7 @@ function PremiumHeroSection() {
           return
         }
 
-        if (cvData && cvData.length > 0) {
+        if (cvData && cvData.length > 0 && cvData[0]) {
           const fileName = cvData[0].name
           const { data } = await supabase.storage
             .from('documents')

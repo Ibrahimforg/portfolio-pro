@@ -158,20 +158,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {navigationItems.map((item) => (
             <Link
               key={item.id}
-              href={item.href}
+              href={item.href || '#'}
               className={cn(
                 "group flex items-center justify-between w-full px-3 py-2.5 text-sm rounded-lg transition-all duration-200",
                 "hover:bg-surface-hover",
-                isActive(item.href) && "bg-primary/10 text-primary border-r-2 border-primary",
-                !isActive(item.href) && "text-text-secondary hover:text-text-primary",
+                isActive(item.href || '#') && "bg-primary/10 text-primary border-r-2 border-primary",
+                !isActive(item.href || '#') && "text-text-secondary hover:text-text-primary",
                 "font-medium"
               )}
             >
               <div className="flex items-center gap-3">
                 <item.icon className={cn(
                   "w-4 h-4 transition-colors",
-                  isActive(item.href) && "text-primary",
-                  !isActive(item.href) && "text-text-muted"
+                  isActive(item.href || '#') && "text-primary",
+                  !isActive(item.href || '#') && "text-text-muted"
                 )} />
                 <span className="truncate">{item.label}</span>
                 {item.badge && (

@@ -34,7 +34,10 @@ export class CSRFProtection {
     
     if (csrfCookie) {
       const token = csrfCookie.split('=')[1]
-      return CSRFProtection.validateToken(token) ? token : null
+      if (token && CSRFProtection.validateToken(token)) {
+        return token
+      }
+      return null
     }
     return null
   }
@@ -89,7 +92,7 @@ export class CSRFProtection {
       cookie.trim().startsWith(`${CSRFProtection.COOKIE_NAME}=`)
     )
     
-    return csrfCookie ? csrfCookie.split('=')[1] : null
+    return csrfCookie ? csrfCookie.split('=')[1] || null : null
   }
 
   // Générer et définir un nouveau token

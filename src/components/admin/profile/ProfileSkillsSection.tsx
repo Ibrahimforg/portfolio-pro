@@ -48,7 +48,7 @@ export const ProfileSkillsSection: React.FC<ProfileSkillsSectionProps> = ({
       }
     }
 
-    onChange('skills_config', updatedConfig)
+    onChange('skills_config', updatedConfig as any)
     setNewSkill({ ...newSkill, [category]: '' })
   }
 
@@ -61,7 +61,7 @@ export const ProfileSkillsSection: React.FC<ProfileSkillsSectionProps> = ({
       }
     }
 
-    onChange('skills_config', updatedConfig)
+    onChange('skills_config', updatedConfig as any)
   }
 
   const updateCategoryField = (category: string, field: string, value: string) => {
@@ -73,7 +73,7 @@ export const ProfileSkillsSection: React.FC<ProfileSkillsSectionProps> = ({
       }
     }
 
-    onChange('skills_config', updatedConfig)
+    onChange('skills_config', updatedConfig as any)
   }
 
   return (

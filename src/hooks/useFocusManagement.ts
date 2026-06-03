@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, RefObject } from 'react'
 
-export function useFocusManagement(isOpen: boolean): RefObject<HTMLDivElement> {
+export function useFocusManagement(isOpen: boolean): RefObject<HTMLDivElement | null> {
   const containerRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
 
@@ -16,7 +16,7 @@ export function useFocusManagement(isOpen: boolean): RefObject<HTMLDivElement> {
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       ) as NodeListOf<HTMLElement>
       
-      if (focusableElements?.length > 0) {
+      if (focusableElements?.length > 0 && focusableElements[0]) {
         focusableElements[0].focus()
       }
     } else {

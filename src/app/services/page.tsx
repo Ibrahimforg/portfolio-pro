@@ -18,6 +18,16 @@ import { SmartphoneIcon } from '@/components/ui/PWAManager'
 import { supabase } from '@/lib/supabase'
 import { Service, PricingInfo, IconComponent } from '@/types'
 
+const iconMap: IconComponent = {
+  Code,
+  Database,
+  Globe,
+  Server,
+  Zap,
+  Shield,
+  Users
+}
+
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
@@ -103,13 +113,13 @@ export default function ServicesPage() {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {services.map((service) => {
-            const Icon = service.icon
+            const IconComponent = service.icon ? iconMap[service.icon as keyof typeof iconMap] : null
             return (
               <div key={service.id} className="card group">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                     <div className="w-6 h-6 text-primary flex items-center justify-center">
-                      <Icon />
+                      {IconComponent && <IconComponent />}
                     </div>
                   </div>
                   <div className="flex-1">

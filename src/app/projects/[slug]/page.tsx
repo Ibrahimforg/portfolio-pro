@@ -358,7 +358,7 @@ export default function ProjectDetail() {
                   <div className="relative">
                     <div className="aspect-video bg-surface rounded-lg overflow-hidden">
                       <Image
-                        src={project.gallery[currentImageIndex]}
+                        src={project.gallery[currentImageIndex] || ''}
                         alt={`${project.title} - Image ${currentImageIndex + 1}`}
                         fill
                         className="object-cover"

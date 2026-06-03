@@ -211,7 +211,10 @@ export default function PremiumNotifications() {
       ]
       
       if (Math.random() > 0.7) {
-        setNotifications(prev => [randomNotifications[Math.floor(Math.random() * randomNotifications.length)], ...prev.slice(0, 9)])
+        const randomNotification = randomNotifications[Math.floor(Math.random() * randomNotifications.length)]
+        if (randomNotification) {
+          setNotifications(prev => [randomNotification, ...prev.slice(0, 9)])
+        }
       }
     }, 15000) // Every 15 seconds
 
@@ -303,7 +306,7 @@ export default function PremiumNotifications() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation()
-                      notification.action.onClick()
+                      notification.action?.onClick?.()
                     }}
                     className="text-xs px-2 py-1 bg-primary/10 text-primary rounded hover:bg-primary/20 transition-colors"
                   >

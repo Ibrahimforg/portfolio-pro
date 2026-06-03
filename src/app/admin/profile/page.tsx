@@ -190,7 +190,7 @@ export default function ProfilePage() {
     }
   }
 
-  const handleInputChange = (field: keyof ProfileData, value: string | null | undefined) => {
+  const handleInputChange = (field: keyof ExtendedProfileData, value: string | boolean | number[] | string[] | Record<string, string> | any) => {
     setProfileData(prev => ({ ...prev, [field]: value }))
   }
 

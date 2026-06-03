@@ -363,7 +363,7 @@ function ServiceModal({ service, onSave, onClose }: ServiceModalProps) {
     full_description: '',
     icon: '',
     deliverables: [],
-    pricing: null,
+    pricing: undefined,
     order_index: 0
   })
 

@@ -429,7 +429,7 @@ export default function PremiumTable({
                               {actions?.view && (
                                 <button
                                   onClick={() => {
-                                    actions.view(row)
+                                    actions.view?.(row)
                                     setRowMenuOpen(null)
                                   }}
                                   className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors w-full text-left"
@@ -441,7 +441,7 @@ export default function PremiumTable({
                               {actions?.edit && (
                                 <button
                                   onClick={() => {
-                                    actions.edit(row)
+                                    actions.edit?.(row)
                                     setRowMenuOpen(null)
                                   }}
                                   className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors w-full text-left"
@@ -453,7 +453,7 @@ export default function PremiumTable({
                               {actions?.duplicate && (
                                 <button
                                   onClick={() => {
-                                    actions.duplicate(row)
+                                    actions.duplicate?.(row)
                                     setRowMenuOpen(null)
                                   }}
                                   className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors w-full text-left"
@@ -465,7 +465,7 @@ export default function PremiumTable({
                               {actions?.share && (
                                 <button
                                   onClick={() => {
-                                    actions.share(row)
+                                    actions.share?.(row)
                                     setRowMenuOpen(null)
                                   }}
                                   className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors w-full text-left"
@@ -477,7 +477,7 @@ export default function PremiumTable({
                               {actions?.download && (
                                 <button
                                   onClick={() => {
-                                    actions.download(row)
+                                    actions.download?.(row)
                                     setRowMenuOpen(null)
                                   }}
                                   className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors w-full text-left"
@@ -490,7 +490,7 @@ export default function PremiumTable({
                               {actions?.delete && (
                                 <button
                                   onClick={() => {
-                                    actions.delete(row)
+                                    actions.delete?.(row)
                                     setRowMenuOpen(null)
                                   }}
                                   className="flex items-center gap-3 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors w-full text-left"
