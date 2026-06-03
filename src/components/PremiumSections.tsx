@@ -8,15 +8,29 @@ import { ProjectWithCategory } from '@/types'
 import { ProjectCard } from '@/components/ProjectCard'
 import { cn } from '@/lib/utils'
 
+// Hook pour détecter si le composant est monté côté client
+function useIsMounted() {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  return isMounted
+}
+
 interface StatsProps {}
 
 function StatsSection({}: StatsProps) {
   const [isVisible, setIsVisible] = useState(false)
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 500)
     return () => clearTimeout(timer)
   }, [])
+
+  if (!isMounted) {
+    return null
+  }
 
   const stats = [
     {
