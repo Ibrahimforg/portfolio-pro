@@ -5,26 +5,10 @@ import Image from 'next/image'
 import { ExternalLink, Github } from 'lucide-react'
 import { ProjectCardSkeleton } from '@/components/ui/LoadingStates'
 import { useAnalyticsUltraLight } from '@/hooks/useAnalyticsUltraLight'
-
-interface Project {
-  id: number
-  title: string
-  slug: string
-  short_description: string
-  featured_image: string | null
-  technologies: string[]
-  categories?: {
-    name: string
-    icon: string
-    color: string
-  }
-  completion_date?: string
-  demo_url: string | null
-  github_url: string | null
-}
+import { ProjectWithCategory } from '@/types'
 
 interface ProjectCardProps {
-  project: Project
+  project: ProjectWithCategory
   loading?: boolean
 }
 

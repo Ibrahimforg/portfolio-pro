@@ -20,28 +20,7 @@ import { PageHeader } from '@/components/admin/premium/PageHeader'
 import { PageLayout } from '@/components/admin/premium/PageLayout'
 import AdminFilters from '@/components/admin/premium/AdminFilters'
 import ConfirmModal from '@/components/admin/premium/ConfirmModal'
-
-interface Skill {
-  id: number
-  name: string
-  category_id: number
-  level: 'Expert' | 'Advanced' | 'Intermediate'
-  years_experience: number
-  icon: string
-  description: string
-  order_index: number
-  created_at: string
-  skill_categories?: {
-    name: string
-    icon: string
-  }
-}
-
-interface SkillCategory {
-  id: number
-  name: string
-  icon: string
-}
+import { SkillWithCategory, SkillCategory } from '@/types'
 
 const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   'Frontend': Globe,
@@ -70,7 +49,7 @@ export default function SkillsManagement() {
   
   // Simulation temporaire
   const user = useMemo(() => ({ email: 'admin@example.com' }), [])
-  const [skills, setSkills] = useState<Skill[]>([])
+  const [skills, setSkills] = useState<SkillWithCategory[]>([])
   const [categories, setCategories] = useState<SkillCategory[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
