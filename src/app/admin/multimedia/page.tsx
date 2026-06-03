@@ -173,7 +173,7 @@ export default function MultimediaAdminPage() {
 
   const filteredMultimedia = multimedia.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.description.toLowerCase().includes(searchTerm.toLowerCase())
+                         (item.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false)
     const matchesType = filterType === 'all' || item.file_type === filterType
     return matchesSearch && matchesType
   })

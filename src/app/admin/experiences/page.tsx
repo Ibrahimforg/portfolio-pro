@@ -176,9 +176,9 @@ export default function ExperiencesAdminPage() {
     } catch (error) {
       console.error('💥 FINAL ERROR creating experience:', error)
       console.error('💥 Error type:', typeof error)
-      console.error('💥 Error keys:', Object.keys(error || {}))
-      console.error('💥 Error message:', error?.message)
-      console.error('💥 Error details:', error?.details)
+      const err = error as { message?: string; details?: any }
+      console.error('💥 Error message:', err?.message)
+      console.error('💥 Error details:', err?.details)
     }
   }
 

@@ -281,8 +281,11 @@ export default function ProfilePage() {
       setTimeout(() => setSuccess(''), 3000)
       
       // Forcer le rechargement du profil sur toutes les pages
-      if (typeof window !== 'undefined' && (window as Window & { refetchProfile?: () => void }).refetchProfile) {
-        ;(window as Window & { refetchProfile?: () => void }).refetchProfile()
+      if (typeof window !== 'undefined') {
+        const refetchProfile = (window as Window & { refetchProfile?: () => void }).refetchProfile
+        if (refetchProfile) {
+          refetchProfile()
+        }
       }
     } catch (err) {
       console.error('Erreur sauvegarde:', err)

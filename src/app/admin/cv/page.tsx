@@ -40,7 +40,7 @@ export default function CVManagement() {
 
       if (data && data.length > 0) {
         const file = data[0]
-        if (!file) return;
+        if (!file) return
         const fileName = file?.name || ''
         const { data: { publicUrl } } = await supabase
           .storage
@@ -48,11 +48,11 @@ export default function CVManagement() {
           .getPublicUrl(`cv/${fileName}`)
 
         setCvFile({
-          id: file.id,
+          id: file.id || '',
           name: fileName,
           url: publicUrl,
           size: file?.metadata?.size || 0,
-          created_at: file.created_at
+          created_at: file.created_at || ''
         })
       }
     } catch (err) {
