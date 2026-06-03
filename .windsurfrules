@@ -1,0 +1,187 @@
+# Windsurf Expert Configuration
+
+## Project Overview
+This is a modern Next.js 16 portfolio application with:
+- Next.js 16.1.6 with App Router and Turbopack
+- TypeScript strict mode
+- Tailwind CSS for styling
+- Supabase backend (PostgreSQL + Auth + Storage)
+- shadcn/ui components
+- Premium admin panel with advanced features
+
+## Tech Stack
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **Icons**: Lucide React
+- **Forms**: React Hook Form + Zod
+- **State Management**: React Context API
+- **Analytics**: Custom ultra-light analytics
+
+## Code Style Guidelines
+
+### TypeScript
+- Always use strict TypeScript types
+- Prefer interfaces over types for object shapes
+- Use proper type guards and null checks
+- Avoid `any` type - use `unknown` or proper types instead
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+
+### React
+- Use functional components with hooks
+- Prefer `useEffect` for side effects
+- Use `useCallback` and `useMemo` for performance optimization
+- Keep components small and focused
+- Use proper prop types
+
+### Styling
+- Use Tailwind CSS utility classes
+- Follow mobile-first responsive design
+- Use consistent spacing and color schemes
+- Prefer dark mode by default
+
+### File Structure
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── admin/             # Admin panel pages
+│   ├── api/               # API routes
+│   └── (auth)/            # Auth pages
+├── components/            # React components
+│   ├── admin/            # Admin-specific components
+│   ├── ui/               # shadcn/ui components
+│   └── layout/           # Layout components
+├── lib/                  # Utility functions
+├── hooks/                # Custom React hooks
+├── contexts/             # React contexts
+└── types/                # TypeScript types
+```
+
+## Key Patterns
+
+### Hydration Safety
+Always use the `useIsMounted` hook for client-only rendering:
+```typescript
+function useIsMounted() {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  return isMounted
+}
+```
+
+### Supabase Queries
+Use proper error handling and type safety:
+```typescript
+const { data, error } = await supabase
+  .from('table')
+  .select('*')
+  .eq('column', value)
+  .single()
+
+if (error) throw error
+```
+
+### Admin Panel Components
+- Use PremiumLayout for admin pages
+- Implement proper loading states
+- Add error boundaries
+- Use optimistic UI updates where possible
+
+## Common Issues & Solutions
+
+### Hydration Mismatch
+- Use `useIsMounted` hook for client-only content
+- Avoid `typeof window !== 'undefined'` checks
+- Ensure consistent initial state
+
+### TypeScript Errors
+- Add proper null checks with `?.` and `??`
+- Use type assertions sparingly (`as any`)
+- Define proper interfaces in `src/types/index.ts`
+
+### Performance
+- Use React.memo for expensive components
+- Implement virtual scrolling for large lists
+- Lazy load images with OptimizedImage component
+- Use code splitting for admin panel
+
+## Admin Panel Features
+
+### Navigation
+- Dashboard with real-time analytics
+- Profile management
+- Skills management
+- Projects CRUD
+- Services management
+- Experiences timeline
+- Advanced analytics
+- Multimedia gallery
+- CV management
+- Contact messages
+
+### Components
+- PremiumTable with sorting/filtering
+- PremiumCard for data display
+- PremiumNotifications system
+- AdvancedEditor with rich text
+- RealAnalytics dashboard
+- WorkflowAutomation
+- UserManagement
+- ApiManagement
+
+## Development Commands
+
+### Development
+```bash
+npm run dev          # Start dev server with Turbopack
+npm run build        # Build for production
+npm run start        # Start production server
+```
+
+### Database
+```bash
+# Supabase migrations are handled via Supabase Dashboard
+# Use Supabase CLI for local development if needed
+```
+
+## Best Practices
+
+1. **Always test admin panel changes** - The admin panel is complex
+2. **Use proper TypeScript types** - Avoid runtime errors
+3. **Implement proper error handling** - Show user-friendly errors
+4. **Optimize for performance** - Use lazy loading and code splitting
+5. **Follow accessibility guidelines** - Use ARIA labels and semantic HTML
+6. **Keep components small** - Single responsibility principle
+7. **Use proper state management** - Context for global state, local state for component state
+8. **Implement proper loading states** - Show skeletons or spinners
+9. **Add proper error boundaries** - Catch and display errors gracefully
+10. **Test responsive design** - Ensure mobile compatibility
+
+## Security
+
+- Always validate user input
+- Use Supabase RLS policies
+- Implement proper authentication checks
+- Sanitize user-generated content
+- Use HTTPS in production
+- Implement rate limiting for API routes
+
+## Deployment
+
+- Use Vercel for Next.js deployment
+- Configure environment variables
+- Set up proper CORS policies
+- Enable caching strategies
+- Monitor performance with analytics
+
+## Notes
+
+- The project uses Turbopack for faster development
+- Admin panel has premium features enabled
+- All admin pages require authentication
+- Images are optimized with custom OptimizedImage component
+- Analytics are ultra-light for performance
