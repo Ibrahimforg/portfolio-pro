@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Calendar, MapPin, GraduationCap, Award } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
 import { Experience, Education } from '@/types'
 
 export default function AboutPage() {
@@ -17,18 +16,15 @@ export default function AboutPage() {
       try {
         setLoading(true)
 
-        // Récupérer les expériences
-        const { data: experiencesData, error: experiencesError } = await supabase
-          .from('experiences')
-          .select('*')
-          .order('order_index')
-
-        if (experiencesError) {
-          console.error('Erreur expériences:', experiencesError)
-          setExperiences([])
-        } else {
-          setExperiences(experiencesData || [])
+        // Récupérer les expériences via API
+        const experiencesResponse = await fetch('/api/experiences')
+        
+        if (!experiencesResponse.ok) {
+          throw new Error(`Failed to fetch experiences: ${experiencesResponse.statusText}`)
         }
+        
+        const experiencesData = await experiencesResponse.json()
+        setExperiences(experiencesData || [])
 
         // Données d'éducation statiques (pas de table correspondante)
         setEducation([

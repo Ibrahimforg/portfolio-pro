@@ -102,8 +102,8 @@ export class RateLimiter {
   }
 }
 
-// Nettoyage toutes les heures
-if (typeof window === 'undefined') {
+// Nettoyage toutes les heures - SERVEUR UNIQUEMENT
+if (typeof window === 'undefined' && typeof global !== 'undefined') {
   setInterval(() => {
     RateLimiter.getInstance().cleanup()
   }, 60 * 60 * 1000) // 1 heure

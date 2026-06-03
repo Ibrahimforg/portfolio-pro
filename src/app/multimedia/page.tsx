@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
-import { supabase } from '@/lib/supabase'
 import { Multimedia } from '@/types'
 import { 
   Video, 
@@ -38,16 +37,17 @@ export default function MultimediaPage() {
   useEffect(() => {
     const fetchMultimediaFiles = async () => {
       try {
-        const { data, error } = await supabase
-          .from('multimedia')
-          .select('*')
-          .eq('published', true)
-          .order('created_at', { ascending: false })
-
-        if (error) throw error
+        const response = await fetch('/api/multimedia?published=true')
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.statusText}`)
+        }
+        
+        const data = await response.json()
         setMultimedia(data || [])
       } catch (error) {
         console.error('Error fetching multimedia files:', error)
+        setMultimedia([])
       } finally {
         setLoading(false)
       }

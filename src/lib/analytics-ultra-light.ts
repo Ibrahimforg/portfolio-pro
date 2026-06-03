@@ -36,8 +36,8 @@ class AnalyticsUltraLight {
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => this.processQueue())
       } else {
-        // Fallback avec setTimeout très long
-        setTimeout(() => this.processQueue(), 10000)
+        // Fallback avec setTimeout : 5 secondes au lieu de 10
+        setTimeout(() => this.processQueue(), 5000)
       }
     }
 
@@ -51,14 +51,21 @@ class AnalyticsUltraLight {
       }
     }
 
-    // Vérifier uniquement lors d'événements utilisateur rares
+    // Écouteurs limités avec gestion explicite de cleanup
     const handleUserEvent = () => {
       setTimeout(checkProcess, 5000) // 5 secondes après l'événement
     }
 
-    // Écouteurs très limités
-    window.addEventListener('click', handleUserEvent, { passive: true, once: true })
-    window.addEventListener('keydown', handleUserEvent, { passive: true, once: true })
+    // FIX: Retirer 'once: true' - permettre plusieurs événements
+    window.addEventListener('click', handleUserEvent, { passive: true })
+    window.addEventListener('keydown', handleUserEvent, { passive: true })
+    
+    // Cleanup sur beforeunload
+    window.addEventListener('beforeunload', () => {
+      if (this.queue.length > 0) {
+        this.processQueue()
+      }
+    })
   }
 
   private async processQueue(): Promise<void> {

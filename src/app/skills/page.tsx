@@ -6,7 +6,6 @@ import {
   Database, 
   Globe
 } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
@@ -24,35 +23,19 @@ export default function SkillsPage() {
       try {
         setLoading(true)
 
-        // Récupérer les catégories
-        const { data: categoriesData, error: categoriesError } = await supabase
-          .from('skill_categories')
-          .select('*')
-          .order('order_index')
+        // Récupérer les catégories via API
+        const categoriesResponse = await fetch('/api/categories?type=skills')
+        const categoriesData = categoriesResponse.ok ? await categoriesResponse.json() : []
 
-        if (categoriesError) {
-          console.warn('Erreur catégories:', categoriesError.message)
+        // Récupérer les compétences via API
+        const skillsResponse = await fetch('/api/skills')
+        
+        if (!skillsResponse.ok) {
+          throw new Error(`Failed to fetch skills: ${skillsResponse.statusText}`)
         }
-
-        // Récupérer les compétences avec jointure
-        const { data: skillsData, error: skillsError } = await supabase
-          .from('skills')
-          .select(`
-            *,
-            skill_categories (
-              name,
-              icon
-            )
-          `)
-          .order('order_index')
-
-        if (skillsError) {
-          console.error('Erreur compétences:', skillsError)
-          setSkills([])
-        } else {
-          setSkills(skillsData || [])
-        }
-
+        
+        const skillsData = await skillsResponse.json()
+        setSkills(skillsData || [])
         setCategories(categoriesData || [])
       } catch (error) {
         console.error('Erreur critique lors du chargement:', error)

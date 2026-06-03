@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { ProjectCard } from '@/components/ProjectCard'
-import { supabase } from '@/lib/supabase'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Project, Category, ProjectWithCategory } from '@/types'
@@ -10,52 +9,37 @@ import { Project, Category, ProjectWithCategory } from '@/types'
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<ProjectWithCategory[]>([])
   const [categories, setCategories] = useState<Category[]>([])
-  const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState('all')
+  const [showLoading, setShowLoading] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true)
+        // Montrer le loading seulement après 200ms si pas encore chargé
+        const loadingTimer = setTimeout(() => setShowLoading(true), 200)
 
-        // Récupérer les catégories
-        const { data: categoriesData, error: categoriesError } = await supabase
-          .from('categories')
-          .select('*')
-          .order('order_index')
+        // Récupérer les catégories via API
+        const categoriesResponse = await fetch('/api/categories?type=projects')
+        const categoriesData = categoriesResponse.ok ? await categoriesResponse.json() : []
 
-        if (categoriesError) {
-          console.warn('Erreur catégories:', categoriesError.message)
+        // Récupérer les projets via API
+        const projectsResponse = await fetch('/api/projects?published=true')
+        
+        if (!projectsResponse.ok) {
+          throw new Error(`Failed to fetch projects: ${projectsResponse.statusText}`)
         }
+        
+        const projectsData = await projectsResponse.json()
 
-        // Récupérer les projets publiés
-        const { data: projectsData, error: projectsError } = await supabase
-          .from('projects')
-          .select(`
-            *,
-            categories (
-              name,
-              color,
-              icon
-            )
-          `)
-          .eq('published', true)
-          .order('order_index')
-
-        if (projectsError) {
-          console.error('Erreur projets:', projectsError)
-          setProjects([])
-        } else {
-          // Transformer les données pour correspondre à ProjectWithCategory
-          const transformedProjects = projectsData.map((project: any) => ({
-            ...project,
-            categories: project.categories || { name: 'Non catégorisé', color: null, icon: null, order: 0, description: null, created_at: '', updated_at: '' }
-          }))
-          setProjects(transformedProjects)
-        }
+        // Transformer les données pour correspondre à ProjectWithCategory
+        const transformedProjects = projectsData.map((project: any) => ({
+          ...project,
+          categories: project.categories || { name: 'Non catégorisé', color: null, icon: null, order: 0, description: null, created_at: '', updated_at: '' }
+        }))
+        setProjects(transformedProjects)
 
         // Mettre à jour les catégories
-        if (categoriesData) {
+        if (categoriesData && categoriesData.length > 0) {
           const allCategories = [
             { id: 0, name: 'Tous', slug: 'all', color: null, description: null, icon: null, order: 0, created_at: '', updated_at: '' },
             ...categoriesData
@@ -64,12 +48,14 @@ export default function ProjectsPage() {
         } else {
           setCategories([{ id: 0, name: 'Tous', slug: 'all', color: null, description: null, icon: null, order: 0, created_at: '', updated_at: '' }])
         }
+
+        clearTimeout(loadingTimer)
+        setShowLoading(false)
       } catch (error) {
         console.error('Erreur critique lors du chargement:', error)
+        setShowLoading(true)
         setCategories([{ id: 0, name: 'Tous', slug: 'all', color: null, description: null, icon: null, order: 0, created_at: '', updated_at: '' }])
         setProjects([])
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -80,7 +66,7 @@ export default function ProjectsPage() {
     ? projects 
     : projects.filter(project => project.categories.name === activeCategory)
 
-  if (loading) {
+  if (showLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">

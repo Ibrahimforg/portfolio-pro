@@ -1,13 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { 
-  Plus, 
-  Save, 
+import {
+  Save,
   ArrowLeft,
-  Briefcase,
-  Calendar
+  Briefcase
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
@@ -17,7 +15,7 @@ import { PageLayout } from '@/components/admin/premium/PageLayout'
 interface NewExperience {
   title: string
   company: string
-  position: string
+  location: string
   start_date: string
   end_date: string
   description: string
@@ -31,7 +29,7 @@ export default function NewExperiencePage() {
   const [formData, setFormData] = useState<NewExperience>({
     title: '',
     company: '',
-    position: '',
+    location: '',
     start_date: '',
     end_date: '',
     description: '',
@@ -44,15 +42,28 @@ export default function NewExperiencePage() {
     setLoading(true)
 
     try {
-      const { error } = await supabase
+      // Validation des données
+      if (!formData.title || !formData.company || !formData.location || !formData.start_date || !formData.description) {
+        throw new Error('Tous les champs obligatoires doivent être remplis')
+      }
+
+      console.warn('Creating experience with data:', formData)
+
+      const { data, error } = await supabase
         .from('experiences')
         .insert([formData])
+        .select()
 
-      if (error) throw error
+      if (error) {
+        console.error('Supabase error:', error)
+        throw error
+      }
 
+      console.warn('Experience created successfully:', data)
       router.push('/admin/experiences')
     } catch (error) {
       console.error('Error creating experience:', error)
+      alert(`Erreur lors de la création: ${error instanceof Error ? error.message : JSON.stringify(error)}`)
     } finally {
       setLoading(false)
     }
@@ -110,6 +121,20 @@ export default function NewExperiencePage() {
                   onChange={(e) => handleInputChange('company', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Ex: Moov Africa, ITSCGE-BF"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Lieu / Localisation *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.location}
+                  onChange={(e) => handleInputChange('location', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Ex: Ouagadougou, Burkina Faso"
                 />
               </div>
 

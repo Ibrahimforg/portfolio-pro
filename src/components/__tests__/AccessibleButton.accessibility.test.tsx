@@ -3,7 +3,16 @@ import { AccessibleButton } from '../ui/AccessibleButton'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import '@testing-library/jest-dom'
 
-expect.extend(toHaveNoViolations)
+// Properly extend expect with jest-axe matchers
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toHaveNoViolations(): R
+    }
+  }
+}
+
+expect.extend({ toHaveNoViolations } as any)
 
 describe('AccessibleButton', () => {
   it('should not have accessibility violations', async () => {

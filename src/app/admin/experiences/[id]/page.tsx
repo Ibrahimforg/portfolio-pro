@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { 
-  Save, 
+import {
+  Save,
   ArrowLeft,
-  Edit,
   Trash2,
-  Briefcase,
-  Calendar
+  Briefcase
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
@@ -19,7 +17,7 @@ interface Experience {
   id: number
   title: string
   company: string
-  position: string
+  location: string
   start_date: string
   end_date: string
   description: string
@@ -35,7 +33,7 @@ export default function EditExperiencePage() {
   const [formData, setFormData] = useState<Partial<Experience>>({
     title: '',
     company: '',
-    position: '',
+    location: '',
     start_date: '',
     end_date: '',
     description: '',
@@ -70,6 +68,11 @@ export default function EditExperiencePage() {
     setLoading(true)
 
     try {
+      // Validation des données
+      if (!formData.title || !formData.company || !formData.location || !formData.start_date || !formData.description) {
+        throw new Error('Tous les champs obligatoires doivent être remplis')
+      }
+
       const { error } = await supabase
         .from('experiences')
         .update(formData)
@@ -80,6 +83,7 @@ export default function EditExperiencePage() {
       router.push('/admin/experiences')
     } catch (error) {
       console.error('Error updating experience:', error)
+      alert(`Erreur lors de la mise à jour: ${error instanceof Error ? error.message : JSON.stringify(error)}`)
     } finally {
       setLoading(false)
     }
@@ -98,6 +102,7 @@ export default function EditExperiencePage() {
   const handleDelete = async () => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cette expérience ?')) return
 
+    setLoading(true)
     try {
       const { error } = await supabase
         .from('experiences')
@@ -109,6 +114,9 @@ export default function EditExperiencePage() {
       router.push('/admin/experiences')
     } catch (error) {
       console.error('Error deleting experience:', error)
+      alert(`Erreur lors de la suppression: ${error instanceof Error ? error.message : JSON.stringify(error)}`)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -167,6 +175,20 @@ export default function EditExperiencePage() {
                   onChange={(e) => handleInputChange('company', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Ex: Moov Africa, ITSCGE-BF"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Lieu / Localisation *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.location}
+                  onChange={(e) => handleInputChange('location', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Ex: Ouagadougou, Burkina Faso"
                 />
               </div>
 

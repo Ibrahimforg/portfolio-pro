@@ -5,7 +5,6 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react'
 import { siteConfig } from '@/config/site'
-import { supabase } from '@/lib/supabase'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -30,18 +29,16 @@ export default function ContactPage() {
     setSubmitStatus('idle')
 
     try {
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          read: false
-        })
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
 
-      if (error) throw error
-      
+      if (!response.ok) {
+        throw new Error(`Failed to submit form: ${response.statusText}`)
+      }
+
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
     } catch (error) {
