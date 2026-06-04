@@ -64,7 +64,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('ocean-blue')
-  const [colorMode, setColorMode] = useState<ColorMode>('light') // Thème clair par défaut
+  const [colorMode, setColorMode] = useState<ColorMode>('system') // Thème système par défaut
 
   // Charger les préférences depuis localStorage
   useEffect(() => {
